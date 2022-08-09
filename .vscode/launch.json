@@ -1,0 +1,30 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "sio_core_light",
+      "request": "launch",
+      "type": "dart",
+      "program": "example/sio_core_light_example.dart",
+      "args": [
+        "--dart-define=SIO_FRONT_DOOR=$SIO_FRONT_DOOR",
+        "--dart-define=TOKEN_ISSUE_BODY=$API_TOKEN_ISSUE_BODY"
+      ]
+    },
+    {
+      "name": "sio_core_light (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "sio_core_light (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    }
+  ]
+}
