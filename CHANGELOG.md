@@ -1,3 +1,5 @@
+## 1.0.2
+* Add network groups for buildTx organization
 ## 1.0.1
 * Expose Transaction class
 ## 1.0.0
