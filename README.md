@@ -9,3 +9,5 @@ so please check the setup of trust_wallet_core_lib.
 
 
 List of supported chains [here](list_of_coins.md).
+
+//test
