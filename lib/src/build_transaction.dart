@@ -90,7 +90,7 @@ class BuildTransaction {
   ///
   /// Works with AVAX, ETH, MATIC
   ///
-  /// * `amount` value in gwei.
+  /// * `amount` value in wei.
   /// * `maxInclusionFeePerGas`, `maxFeePerGas`  and `gasLimit` values in wei.
   /// * `maxInclusionFeePerGas` = `Max Priority Fee Per Gas`
   /// * `maxFeePerGas` = `Base Fee Per Gas` + `Max Priority Fee Per Gas`
@@ -107,6 +107,7 @@ class BuildTransaction {
     required String nonce,
     // value in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String maxInclusionFeePerGas = '2000000000',
+    // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String maxFeePerGas = '70000000000',
     // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String gasLimit = '21000',
@@ -115,7 +116,7 @@ class BuildTransaction {
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
-      amount: bigIntToBytes(BigInt.parse(amount) * BigInt.from(10).pow(9)),
+      amount: bigIntToBytes(BigInt.parse(amount)),
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
@@ -199,7 +200,7 @@ class BuildTransaction {
   ///
   /// Works with BSC, ETC
   ///
-  /// * `amount` value in gwei.
+  /// * `amount` value in wei.
   /// * `gasPrice` and `gasLimit` values in wei.
   ///
   /// ChainIds for mainnet:
@@ -220,7 +221,7 @@ class BuildTransaction {
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
-      amount: bigIntToBytes(BigInt.parse(amount) * BigInt.from(10).pow(9)),
+      amount: bigIntToBytes(BigInt.parse(amount)),
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
