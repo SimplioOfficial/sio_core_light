@@ -58,7 +58,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: flutter test integration_test --coverage
+          script: cd example && flutter test integration_tests --coverage
 
       - name: Upload emulator tests coverage to Codecov
         uses: codecov/codecov-action@v1
