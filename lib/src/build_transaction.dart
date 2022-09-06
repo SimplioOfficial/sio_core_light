@@ -101,7 +101,7 @@ class BuildTransaction {
   /// * MATIC = 137
   static Transaction ethereumEIP1559({
     required HDWallet wallet,
-    // value in gwei (10^9 wei)
+    // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
     required String amount,
     required String toAddress,
     required String nonce,
@@ -113,10 +113,12 @@ class BuildTransaction {
     String gasLimit = '21000',
     int chainId = 1,
     int coinType = TWCoinType.TWCoinTypeEthereum,
+    List<int>? data,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
       amount: bigIntToBytes(BigInt.parse(amount)),
+      data: data,
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
@@ -208,7 +210,7 @@ class BuildTransaction {
   /// * ETC = 61
   static Transaction ethereumLegacy({
     required HDWallet wallet,
-    // value in gwei (10^9 wei)
+    // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
     required String amount,
     required String toAddress,
     required String nonce,
@@ -218,10 +220,12 @@ class BuildTransaction {
     String gasLimit = '21000',
     int chainId = 56,
     int coinType = TWCoinType.TWCoinTypeSmartChain,
+    List<int>? data,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
       amount: bigIntToBytes(BigInt.parse(amount)),
+      data: data,
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
