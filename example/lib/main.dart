@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:sio_core_light/sio_core_light.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_ffi.dart';
@@ -42,12 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<String> example() async {
     if (Mnemonic.isValid(mnemonic: mnemonic)) {
       wallet = Mnemonic.import(mnemonic: mnemonic);
+      debugPrint('Mnemonic: $mnemonic');
     } else {
       throw Exception(['Mnemonic is not valid!']);
     }
-    // ignore: unused_local_variable
     final solAddress = wallet.getAddressForCoin(TWCoinType.TWCoinTypeSolana);
-    print('My solana address: $solAddress');
+    debugPrint('Solana address: $solAddress');
 
     const toAddress = '3fTR8GGL2mniGyHtd3Qy2KDVhZ9LHbW59rCc7A3RtBWk';
     const amount = '2000';
@@ -60,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       wallet: wallet,
       latestBlockHash: latestBlockHash,
     );
-    print(signedSolanaTx.toJson());
+    debugPrint('Raw Solana Transaction: ${signedSolanaTx.toJson()}');
 
     const tokenMintAddress = 'SioTkQxHyAs98ouRiyi1YDv3gLMSrX3eNBg61GH7NrM';
     final signedSolanaTokenTx = BuildTransaction.solanaToken(
@@ -71,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
       wallet: wallet,
       latestBlockHash: latestBlockHash,
     );
-    print(signedSolanaTokenTx.toJson());
+    debugPrint('Raw Solana Token Transaction: ${signedSolanaTokenTx.toJson()}');
 
     return 'Success';
   }
