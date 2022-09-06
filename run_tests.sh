@@ -6,4 +6,5 @@ flutter pub get
 flutter test
 
 # On emulator tests
-flutter test integration_test
+cd example
+flutter test integration_tests

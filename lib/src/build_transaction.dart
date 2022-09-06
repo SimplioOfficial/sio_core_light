@@ -90,7 +90,7 @@ class BuildTransaction {
   ///
   /// Works with AVAX, ETH, MATIC
   ///
-  /// * `amount` value in gwei.
+  /// * `amount` value in wei.
   /// * `maxInclusionFeePerGas`, `maxFeePerGas`  and `gasLimit` values in wei.
   /// * `maxInclusionFeePerGas` = `Max Priority Fee Per Gas`
   /// * `maxFeePerGas` = `Base Fee Per Gas` + `Max Priority Fee Per Gas`
@@ -101,21 +101,24 @@ class BuildTransaction {
   /// * MATIC = 137
   static Transaction ethereumEIP1559({
     required HDWallet wallet,
-    // value in gwei (10^9 wei)
+    // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
     required String amount,
     required String toAddress,
     required String nonce,
     // value in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String maxInclusionFeePerGas = '2000000000',
+    // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String maxFeePerGas = '70000000000',
     // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String gasLimit = '21000',
     int chainId = 1,
     int coinType = TWCoinType.TWCoinTypeEthereum,
+    List<int>? data,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
-      amount: bigIntToBytes(BigInt.parse(amount) * BigInt.from(10).pow(9)),
+      amount: bigIntToBytes(BigInt.parse(amount)),
+      data: data,
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
@@ -142,7 +145,7 @@ class BuildTransaction {
   ///
   /// Works with AVAX, ETH, MATIC
   ///
-  /// * `amount` value in gwei.
+  /// * `amount` value in smallest denomination.
   /// * `maxInclusionFeePerGas`, `maxFeePerGas`  and `gasLimit` values in wei.
   /// * `maxInclusionFeePerGas` = `Max Priority Fee Per Gas`
   /// * `maxFeePerGas` = `Base Fee Per Gas` + `Max Priority Fee Per Gas`
@@ -160,6 +163,7 @@ class BuildTransaction {
     required String nonce,
     // value in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String maxInclusionFeePerGas = '2000000000',
+    // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String maxFeePerGas = '70000000000',
     // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String gasLimit = '21000',
@@ -179,7 +183,7 @@ class BuildTransaction {
       maxInclusionFeePerGas: bigIntToBytes(BigInt.parse(maxInclusionFeePerGas)),
       maxFeePerGas: bigIntToBytes(BigInt.parse(maxFeePerGas)),
       gasLimit: bigIntToBytes(BigInt.parse(gasLimit)),
-      toAddress: tokenContract, // yes here must be tokenContract (crazy right?)
+      toAddress: tokenContract, // yes here must be tokenContract
       transaction: ethereum_pb.Transaction(erc20Transfer: tx),
       privateKey: secretPrivateKey.data(),
       nonce: bigIntToBytes(BigInt.parse(nonce)),
@@ -198,7 +202,7 @@ class BuildTransaction {
   ///
   /// Works with BSC, ETC
   ///
-  /// * `amount` value in gwei.
+  /// * `amount` value in wei.
   /// * `gasPrice` and `gasLimit` values in wei.
   ///
   /// ChainIds for mainnet:
@@ -206,7 +210,7 @@ class BuildTransaction {
   /// * ETC = 61
   static Transaction ethereumLegacy({
     required HDWallet wallet,
-    // value in gwei (10^9 wei)
+    // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
     required String amount,
     required String toAddress,
     required String nonce,
@@ -216,10 +220,12 @@ class BuildTransaction {
     String gasLimit = '21000',
     int chainId = 56,
     int coinType = TWCoinType.TWCoinTypeSmartChain,
+    List<int>? data,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
-      amount: bigIntToBytes(BigInt.parse(amount) * BigInt.from(10).pow(9)),
+      amount: bigIntToBytes(BigInt.parse(amount)),
+      data: data,
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
@@ -244,7 +250,7 @@ class BuildTransaction {
   ///
   /// Works with BSC, ETC
   ///
-  /// * `amount` value in gwei.
+  /// * `amount` value in smallest denomination.
   /// * `gasPrice` and `gasLimit` values in wei.
   ///
   /// ChainIds for mainnet:
@@ -275,7 +281,7 @@ class BuildTransaction {
       chainId: bigIntToBytes(BigInt.from(chainId)),
       gasPrice: bigIntToBytes(BigInt.parse(gasPrice)),
       gasLimit: bigIntToBytes(BigInt.parse(gasLimit)),
-      toAddress: tokenContract, // yes here must be tokenContract (crazy right?)
+      toAddress: tokenContract, // yes here must be tokenContract
       transaction: ethereum_pb.Transaction(erc20Transfer: tx),
       privateKey: secretPrivateKey.data(),
       nonce: bigIntToBytes(BigInt.parse(nonce)),
@@ -290,6 +296,8 @@ class BuildTransaction {
   }
 
   /// Solana native transaction.
+  ///
+  /// * `amount` and `fee` values in lamports.
   static Transaction solana({
     required HDWallet wallet,
     required String recipient,
@@ -321,6 +329,9 @@ class BuildTransaction {
   }
 
   /// Solana token transaction.
+  ///
+  /// * `amount` value in smallest denomination.
+  /// * `fee` value in lamports.
   static Transaction solanaToken({
     required HDWallet wallet,
     required String recipientSolanaAddress,

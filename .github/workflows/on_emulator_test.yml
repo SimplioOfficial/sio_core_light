@@ -27,6 +27,12 @@ jobs:
       - name: Verify formatting
         run: flutter format --output=none --set-exit-if-changed .
 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
 
@@ -58,7 +64,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: flutter test integration_test --coverage
+          script: cd example && flutter test integration_tests --coverage
 
       - name: Upload emulator tests coverage to Codecov
         uses: codecov/codecov-action@v1

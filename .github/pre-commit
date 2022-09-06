@@ -56,7 +56,8 @@ printf '%s\n' "${avar}"
 
 # On emulator unit tests
 printf "\e[33;1m%s\e[0m\n" '=== Running On Emulator Unit Tests ==='
-flutter test integration_test
+cd example
+flutter test integration_tests
 if [ $? -ne 0 ]; then
   printf "\e[31;1m%s\e[0m\n" '=== On Emulator Unit Tests error ==='
   pop_stash_files
