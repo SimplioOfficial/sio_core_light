@@ -1,3 +1,8 @@
+## 1.0.3
+* Expose `data` argument for ETH transactions
+* Now `amount` argument for ETH transactions is in `wei` instead of `gwei`
+* Fix bugs in methods documentation
+* Small bug fixes
 ## 1.0.2
 * Add network groups for buildTx organization
 ## 1.0.1
