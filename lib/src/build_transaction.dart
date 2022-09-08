@@ -387,7 +387,7 @@ class BuildTransaction {
   }) {
     final changeAddress = wallet.getAddressForCoin(coin);
     if (utxo.isEmpty) {
-      throw NoUtxoAvailableException();
+      throw const NoUtxoAvailableException();
     }
     utxo.sort((map1, map2) => map1['value'] != null
         ? int.parse(map1['value']).compareTo(int.parse(map2['value']))
@@ -480,7 +480,7 @@ class BuildTransaction {
         (transactionPlan.fee.toInt() == 0 ||
             int.parse(amount) + transactionPlan.fee.toInt() >
                 minUtxoAmountNeed)) {
-      throw LowTotalAmountPlusFeeException();
+      throw const LowTotalAmountPlusFeeException();
     }
     signingInput.plan = transactionPlan;
     signingInput.amount = transactionPlan.amount;

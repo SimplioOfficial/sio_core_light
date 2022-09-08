@@ -1,3 +1,10 @@
+## 1.1.0
+* Implement `networkId` method for `EthNetworks`
+* Implement `assetId` method for `Networks`
+* Refactor: move `NetworkGroups` under `Cluster`
+* Refactor `chainId` method
+* Implement `EthChainId` and `SioAssetId`
+* Fix: improve utxo exceptions
 ## 1.0.3
 * Expose `data` argument for ETH transactions
 * Now `amount` argument for ETH transactions is in `wei` instead of `gwei`
