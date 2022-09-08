@@ -1,3 +1,5 @@
+## 1.1.1
+* fix: rename `Cluster.utxo`
 ## 1.1.0
 * Implement `networkId` method for `EthNetworks`
 * Implement `assetId` method for `Networks`

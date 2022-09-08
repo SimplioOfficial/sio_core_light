@@ -17,7 +17,7 @@ class Cluster {
   static const List<int> solana = [
     TWCoinType.TWCoinTypeSolana,
   ];
-  static const List<int> utxoGroup = [
+  static const List<int> utxo = [
     TWCoinType.TWCoinTypeBitcoin,
     TWCoinType.TWCoinTypeBitcoinCash,
     TWCoinType.TWCoinTypeDash,
