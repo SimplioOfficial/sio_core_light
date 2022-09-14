@@ -9,12 +9,12 @@ import 'package:trust_wallet_core_lib/protobuf/Ethereum.pb.dart' as ethereum_pb;
 import 'package:trust_wallet_core_lib/protobuf/Solana.pb.dart' as solana_pb;
 
 class Transaction {
-  final String? rawTx;
-  final BigInt? networkFee;
+  final String rawTx;
+  final BigInt networkFee;
 
   Transaction({
-    this.rawTx,
-    this.networkFee,
+    required this.rawTx,
+    required this.networkFee,
   });
 
   Map<String, dynamic> toJson() {
