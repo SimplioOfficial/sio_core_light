@@ -1,3 +1,5 @@
+## 1.1.2
+* Fix: `Transaction` arguments non null-able
 ## 1.1.1
 * fix: rename `Cluster.utxo`
 ## 1.1.0
