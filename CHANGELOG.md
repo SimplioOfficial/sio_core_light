@@ -1,3 +1,5 @@
+## 1.1.3
+* Implement Ethereum message signing
 ## 1.1.2
 * Fix: `Transaction` arguments non null-able
 ## 1.1.1
