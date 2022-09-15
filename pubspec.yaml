@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   convert: ^3.0.2
+  eth_sig_util: ^0.0.9
   fixnum: ^1.0.1
   flutter:
     sdk: flutter
