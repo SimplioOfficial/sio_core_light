@@ -1,3 +1,5 @@
+## 1.1.4
+* Improve arguments types
 ## 1.1.3
 * Implement Ethereum message signing
 ## 1.1.2
