@@ -48,7 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
     debugPrint('Solana address: $solAddress');
 
     const toAddress = '3fTR8GGL2mniGyHtd3Qy2KDVhZ9LHbW59rCc7A3RtBWk';
-    const amount = '2000';
+    final amount = BigInt.from(2000);
+    final fee = BigInt.from(5000);
     // This must be fetched  from network with the correct api call
     const latestBlockHash = '11111111111111111111111111111111';
 
@@ -57,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       amount: amount,
       wallet: wallet,
       latestBlockHash: latestBlockHash,
+      fee: fee,
     );
     debugPrint('Raw Solana Transaction: ${signedSolanaTx.toJson()}');
 
@@ -68,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       recipientSolanaAddress: toAddress,
       wallet: wallet,
       latestBlockHash: latestBlockHash,
+      fee: fee,
     );
     debugPrint('Raw Solana Token Transaction: ${signedSolanaTokenTx.toJson()}');
 

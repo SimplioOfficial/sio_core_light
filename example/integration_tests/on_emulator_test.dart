@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:bs58/bs58.dart';
 import 'package:convert/convert.dart';
@@ -70,14 +69,18 @@ void main() {
 
   group('Ethereum transaction tests - ', () {
     const toAddress = '0x3E26e7F73A80444e67b7bE654A38aB85ccb6ea47';
-    const amount = '924400';
+    final amount = BigInt.from(924400);
+    final gasLimit = BigInt.from(21000);
     const tokenContract = '0x26Fc591feCC4948c4288d95B6AAdAB00eBa4e72A';
     test('BSC native transaction', () {
+      final gasPrice = BigInt.from(13600000000);
       final signedBscTx = BuildTransaction.ethereumLegacy(
         wallet: wallet,
         amount: amount,
         toAddress: toAddress,
-        nonce: '0',
+        nonce: 0,
+        gasPrice: gasPrice,
+        gasLimit: gasLimit,
       );
       expect(hex.decode(signedBscTx.rawTx).length, 106);
       expect(signedBscTx.toJson(), {
@@ -87,12 +90,15 @@ void main() {
       });
     });
     test('BSC token transaction', () {
+      final gasPrice = BigInt.from(3600000000);
       final signedBscTx = BuildTransaction.ethereumERC20TokenLegacy(
         wallet: wallet,
         amount: amount,
         tokenContract: tokenContract,
         toAddress: toAddress,
-        nonce: '0',
+        nonce: 0,
+        gasPrice: gasPrice,
+        gasLimit: gasLimit,
       );
       expect(hex.decode(signedBscTx.rawTx).length, 171);
       expect(signedBscTx.toJson(), {
@@ -102,11 +108,14 @@ void main() {
       });
     });
     test('Ethereum native transaction', () {
+      final gasPrice = BigInt.from(70000000000);
       final signedEthTx = BuildTransaction.ethereumEIP1559(
         wallet: wallet,
         amount: amount,
         toAddress: toAddress,
-        nonce: '0',
+        nonce: 0,
+        maxFeePerGas: gasPrice,
+        gasLimit: gasLimit,
       );
       expect(hex.decode(signedEthTx.rawTx).length, 113);
       expect(signedEthTx.toJson(), {
@@ -116,12 +125,15 @@ void main() {
       });
     });
     test('Ethereum ERC20 token transaction', () {
+      final gasPrice = BigInt.from(70000000000);
       final signedEthTx = BuildTransaction.ethereumERC20TokenEIP1559(
         wallet: wallet,
         amount: amount,
         tokenContract: tokenContract,
         toAddress: toAddress,
-        nonce: '0',
+        nonce: 0,
+        maxFeePerGas: gasPrice,
+        gasLimit: gasLimit,
       );
       expect(hex.decode(signedEthTx.rawTx).length, 178);
       expect(signedEthTx.toJson(), {
@@ -131,12 +143,14 @@ void main() {
       });
     });
     test('Ethereum Classic native transaction', () {
+      final gasPrice = BigInt.from(5000000000);
       final signedEtcTx = BuildTransaction.ethereumLegacy(
         wallet: wallet,
         amount: amount,
         toAddress: toAddress,
-        nonce: '0',
-        gasPrice: '5000000000',
+        nonce: 0,
+        gasPrice: gasPrice,
+        gasLimit: gasLimit,
         chainId: 61,
         coinType: TWCoinType.TWCoinTypeEthereumClassic,
       );
@@ -148,13 +162,15 @@ void main() {
       });
     });
     test('Ethereum Classic ETC20 token transaction', () {
+      final gasPrice = BigInt.from(5000000000);
       final signedBscTx = BuildTransaction.ethereumERC20TokenLegacy(
         wallet: wallet,
         amount: amount,
         tokenContract: tokenContract,
         toAddress: toAddress,
-        nonce: '0',
-        gasPrice: '5000000000',
+        nonce: 0,
+        gasPrice: gasPrice,
+        gasLimit: gasLimit,
         chainId: 61,
         coinType: TWCoinType.TWCoinTypeEthereumClassic,
       );
@@ -166,13 +182,15 @@ void main() {
       });
     });
     test('Polygon native transaction', () {
+      final gasPrice = BigInt.from(40000000000);
       final signedEthTx = BuildTransaction.ethereumEIP1559(
         wallet: wallet,
         amount: amount,
         toAddress: toAddress,
-        nonce: '0',
+        nonce: 0,
         maxInclusionFeePerGas: '30000000000',
-        maxFeePerGas: '40000000000',
+        maxFeePerGas: gasPrice,
+        gasLimit: gasLimit,
         chainId: 137,
         coinType: TWCoinType.TWCoinTypePolygon,
       );
@@ -184,14 +202,16 @@ void main() {
       });
     });
     test('Polygon ERC20 token transaction', () {
+      final gasPrice = BigInt.from(40000000000);
       final signedEthTx = BuildTransaction.ethereumERC20TokenEIP1559(
         wallet: wallet,
         amount: amount,
         tokenContract: tokenContract,
         toAddress: toAddress,
-        nonce: '0',
+        nonce: 0,
         maxInclusionFeePerGas: '30000000000',
-        maxFeePerGas: '40000000000',
+        maxFeePerGas: gasPrice,
+        gasLimit: gasLimit,
         chainId: 137,
         coinType: TWCoinType.TWCoinTypePolygon,
       );
@@ -203,13 +223,15 @@ void main() {
       });
     });
     test('Avalanche native transaction', () {
+      final gasPrice = BigInt.from(27500000000);
       final signedEthTx = BuildTransaction.ethereumEIP1559(
         wallet: wallet,
         amount: amount,
         toAddress: toAddress,
-        nonce: '0',
+        nonce: 0,
         maxInclusionFeePerGas: '2500000000',
-        maxFeePerGas: '27500000000',
+        gasLimit: gasLimit,
+        maxFeePerGas: gasPrice,
         chainId: 43114,
         coinType: TWCoinType.TWCoinTypeAvalancheCChain,
       );
@@ -221,14 +243,16 @@ void main() {
       });
     });
     test('Avalanche ERC20 token transaction', () {
+      final gasPrice = BigInt.from(27500000000);
       final signedEthTx = BuildTransaction.ethereumERC20TokenEIP1559(
         wallet: wallet,
         amount: amount,
         tokenContract: tokenContract,
         toAddress: toAddress,
-        nonce: '0',
+        nonce: 0,
         maxInclusionFeePerGas: '2500000000',
-        maxFeePerGas: '27500000000',
+        maxFeePerGas: gasPrice,
+        gasLimit: gasLimit,
         chainId: 43114,
         coinType: TWCoinType.TWCoinTypeAvalancheCChain,
       );
@@ -244,13 +268,15 @@ void main() {
   group('Solana transactions tests - ', () {
     const toAddress = '3fTR8GGL2mniGyHtd3Qy2KDVhZ9LHbW59rCc7A3RtBWk';
     const tokenMintAddress = 'SioTkQxHyAs98ouRiyi1YDv3gLMSrX3eNBg61GH7NrM';
-    const amount = '4000';
+    final amount = BigInt.from(4000);
+    final fee = BigInt.from(5000);
     const decimals = 8;
     test('Native transaction', () async {
       final signedSolanaTx = BuildTransaction.solana(
         wallet: wallet,
         recipient: toAddress,
         amount: amount,
+        fee: fee,
         latestBlockHash: '11111111111111111111111111111111',
       );
       expect(base58.decode(signedSolanaTx.rawTx).length, 215);
@@ -266,6 +292,7 @@ void main() {
         recipientSolanaAddress: toAddress,
         tokenMintAddress: tokenMintAddress,
         amount: amount,
+        fee: fee,
         decimals: decimals,
         latestBlockHash: '11111111111111111111111111111111',
       );
@@ -279,10 +306,11 @@ void main() {
   });
 
   group('UtxoCoin transaction tests - ', () {
+    final fee = BigInt.from(10);
     test('No utxo available - blockbook', () async {
       const coin = TWCoinType.TWCoinTypeDogecoin;
       const toAddress = 'DK3AhJvD57AfUqFCp5MUV62GE6K4enGxSw';
-      const amount = '1005000';
+      final amount = BigInt.from(1005000);
       // https://doge1.simplio.io/api/v2/utxo/DTbELQaWmv5KpFcNpZ9X9wy5RjQGL4YMm2
       const utxoString = '[]';
       List utxo = jsonDecode(utxoString);
@@ -292,7 +320,7 @@ void main() {
           coin: coin,
           toAddress: toAddress,
           amount: amount,
-          byteFee: '10',
+          byteFee: fee,
           utxo: utxo,
         );
       } catch (exception) {
@@ -303,7 +331,7 @@ void main() {
         () async {
       const coin = TWCoinType.TWCoinTypeLitecoin;
       const toAddress = 'ltc1qhw80dfq2kvtd5qqqjrycjde2cj8jx07h98rj0z';
-      const amount = '38900';
+      final amount = BigInt.from(38900);
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
@@ -314,7 +342,7 @@ void main() {
           coin: coin,
           toAddress: toAddress,
           amount: amount,
-          byteFee: '10',
+          byteFee: fee,
           utxo: utxo,
         );
       } catch (exception) {
@@ -325,7 +353,7 @@ void main() {
         () async {
       const coin = TWCoinType.TWCoinTypeLitecoin;
       const toAddress = 'ltc1qhw80dfq2kvtd5qqqjrycjde2cj8jx07h98rj0z';
-      const amount = '38900';
+      final amount = BigInt.from(38900);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":29169,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
       List utxo = jsonDecode(utxoString);
@@ -335,7 +363,7 @@ void main() {
           coin: coin,
           toAddress: toAddress,
           amount: amount,
-          byteFee: '10',
+          byteFee: fee,
           utxo: utxo,
         );
       } catch (exception) {
@@ -345,18 +373,17 @@ void main() {
     test('Valid utxoCoin transaction - blockbook', () async {
       const coin = TWCoinType.TWCoinTypeLitecoin;
       const toAddress = 'ltc1qhw80dfq2kvtd5qqqjrycjde2cj8jx07h98rj0z';
-      const amount = '25000';
+      final amount = BigInt.from(25000);
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
       List utxo = jsonDecode(utxoString);
-
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
         toAddress: toAddress,
         amount: amount,
-        byteFee: '10',
+        byteFee: fee,
         utxo: utxo,
       );
       expect(hex.decode(signedUtxoCoinTx.rawTx).length, 223);
@@ -366,21 +393,21 @@ void main() {
         'networkFee': '1410'
       });
     });
+
     test('Valid utxoCoin transaction - insight', () async {
       const coin = TWCoinType.TWCoinTypeZelcash;
       const toAddress = 't1byktNheu1vBB5YkwKY1zvQDcAt5c44v8w';
-      const amount = '4000';
+      final amount = BigInt.from(4000);
       // https://explorer.runonflux.io/api/addr/t1byktNheu1vBB5YkwKY1zvQDcAt5c44v8w/utxo
       const utxoString =
           '[{"address":"t1byktNheu1vBB5YkwKY1zvQDcAt5c44v8w","txid":"d44de5df6f6e6581dd5a8a16f3b2f1dcd4e2637699d38864d29a9e1b050496ef","vout":0,"scriptPubKey":"76a914c69c2c2a50ddd8fc960a0ef0cc3cdac9a3d995bc88ac","amount":0.000114,"satoshis":11400,"height":1142791,"confirmations":69}]';
       List utxo = jsonDecode(utxoString);
-
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
         toAddress: toAddress,
         amount: amount,
-        byteFee: '10',
+        byteFee: fee,
         utxo: utxo,
       );
       expect(hex.decode(signedUtxoCoinTx.rawTx).length, 245);
@@ -390,22 +417,22 @@ void main() {
         'networkFee': '2260'
       });
     });
+
     test('Valid utxoCoin transaction one additional utxo add - blockbook',
         () async {
       const coin = TWCoinType.TWCoinTypeLitecoin;
       const toAddress = 'ltc1qhw80dfq2kvtd5qqqjrycjde2cj8jx07h98rj0z';
-      const amount = '9999';
+      final amount = BigInt.from(9999);
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
       List utxo = jsonDecode(utxoString);
-
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
         toAddress: toAddress,
         amount: amount,
-        byteFee: '10',
+        byteFee: fee,
         utxo: utxo,
       );
       expect(hex.decode(signedUtxoCoinTx.rawTx).length, 222);
@@ -415,21 +442,21 @@ void main() {
         'networkFee': '1410'
       });
     });
+
     test('Valid utxoCoin transaction one additional utxo add - insight',
         () async {
       const coin = TWCoinType.TWCoinTypeLitecoin;
       const toAddress = 'ltc1qhw80dfq2kvtd5qqqjrycjde2cj8jx07h98rj0z';
-      const amount = '9999';
+      final amount = BigInt.from(9999);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":29169,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
       List utxo = jsonDecode(utxoString);
-
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
         toAddress: toAddress,
         amount: amount,
-        byteFee: '10',
+        byteFee: fee,
         utxo: utxo,
       );
       expect(hex.decode(signedUtxoCoinTx.rawTx).length, 222);
@@ -469,8 +496,8 @@ void main() {
           EthSign.message(
             wallet: wallet,
             networkId: TWCoinType.TWCoinTypeEthereum,
-            message: Uint8List.fromList(hex.decode(
-                'f737d8ba29fa34adf29b88785edca25c873d6fb2eaa4e77394cab27131fa3284')),
+            message:
+                '0xf737d8ba29fa34adf29b88785edca25c873d6fb2eaa4e77394cab27131fa3284',
           ),
           equals(
               '0xce929bf4483308f0e23752d43cb45def3bfafefdaba1b328d8121969ac303fd955acc4dd5520f585ee3691e04e0917f99360fa24a8280805ff25aa879fb83ae81c'));
@@ -480,8 +507,8 @@ void main() {
           EthSign.personalMessage(
             wallet: wallet,
             networkId: TWCoinType.TWCoinTypeEthereum,
-            message: Uint8List.fromList(hex.decode(
-                '4d7920656d61696c206973206a6f686e40646f652e636f6d202d205468752c2031352053657020323032322031333a30383a313520474d54')),
+            message:
+                '0x4d7920656d61696c206973206a6f686e40646f652e636f6d202d205468752c2031352053657020323032322031333a30383a313520474d54',
           ),
           equals(
               '0x2913768a701ea3bea19b5d61d4b70758bf6b805869dea9425edc18e2efa2aa5c61add9bef273d29b4633972a1f35cc5efec23d7c8aeab358efedc2024d555bb01b'));

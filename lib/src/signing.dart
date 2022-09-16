@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:convert/convert.dart';
 import 'package:eth_sig_util/eth_sig_util.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart';
 
@@ -32,22 +33,26 @@ class EthSign {
   static String message({
     required HDWallet wallet,
     required int networkId,
-    required Uint8List message,
+    required String message,
   }) {
     return EthSigUtil.signMessage(
       privateKeyInBytes: wallet.getKeyForCoin(networkId).data(),
-      message: message,
+      message: Uint8List.fromList(hex.decode(
+        message.substring(2, message.length),
+      )),
     );
   }
 
   static String personalMessage({
     required HDWallet wallet,
     required int networkId,
-    required Uint8List message,
+    required String message,
   }) {
     return EthSigUtil.signPersonalMessage(
       privateKeyInBytes: wallet.getKeyForCoin(networkId).data(),
-      message: message,
+      message: Uint8List.fromList(hex.decode(
+        message.substring(2, message.length),
+      )),
     );
   }
 }
