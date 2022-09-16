@@ -102,40 +102,40 @@ class BuildTransaction {
   static Transaction ethereumEIP1559({
     required HDWallet wallet,
     // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
-    required String amount,
+    required BigInt amount,
     required String toAddress,
-    required String nonce,
+    required int nonce,
     // value in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String maxInclusionFeePerGas = '2000000000',
     // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
-    String maxFeePerGas = '70000000000',
+    required BigInt maxFeePerGas,
     // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
-    String gasLimit = '21000',
+    required BigInt gasLimit,
     int chainId = 1,
     int coinType = TWCoinType.TWCoinTypeEthereum,
     String? data,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
-      amount: bigIntToBytes(BigInt.parse(amount)),
+      amount: bigIntToBytes(amount),
       data: data == null ? null : hex.decode(data.substring(2, data.length)),
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
       txMode: ethereum_pb.TransactionMode.Enveloped,
       maxInclusionFeePerGas: bigIntToBytes(BigInt.parse(maxInclusionFeePerGas)),
-      maxFeePerGas: bigIntToBytes(BigInt.parse(maxFeePerGas)),
-      gasLimit: bigIntToBytes(BigInt.parse(gasLimit)),
+      maxFeePerGas: bigIntToBytes(maxFeePerGas),
+      gasLimit: bigIntToBytes(gasLimit),
       toAddress: toAddress,
       transaction: ethereum_pb.Transaction(transfer: tx),
       privateKey: secretPrivateKey.data(),
-      nonce: bigIntToBytes(BigInt.parse(nonce)),
+      nonce: bigIntToBytes(BigInt.from(nonce)),
     );
     final sign = AnySigner.sign(signingInput.writeToBuffer(), coinType);
     final signingOutput = ethereum_pb.SigningOutput.fromBuffer(sign);
     final transaction = Transaction(
       rawTx: hex.encode(signingOutput.encoded),
-      networkFee: BigInt.parse(maxFeePerGas) * BigInt.parse(gasLimit),
+      networkFee: maxFeePerGas * gasLimit,
     );
     return transaction;
   }
@@ -157,23 +157,23 @@ class BuildTransaction {
   static Transaction ethereumERC20TokenEIP1559({
     required HDWallet wallet,
     // value in smallest denomination
-    required String amount,
+    required BigInt amount,
     required String tokenContract,
     required String toAddress,
-    required String nonce,
+    required int nonce,
     // value in wei = 10^(-18) ETH (or 10^(-9) gwei)
     String maxInclusionFeePerGas = '2000000000',
     // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
-    String maxFeePerGas = '70000000000',
+    required BigInt maxFeePerGas,
     // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
-    String gasLimit = '21000',
+    required BigInt gasLimit,
     int chainId = 1,
     int coinType = TWCoinType.TWCoinTypeEthereum,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
 
     final tx = ethereum_pb.Transaction_ERC20Transfer(
-      amount: bigIntToBytes(BigInt.parse(amount)),
+      amount: bigIntToBytes(amount),
       to: toAddress,
     );
 
@@ -181,18 +181,18 @@ class BuildTransaction {
       chainId: bigIntToBytes(BigInt.from(chainId)),
       txMode: ethereum_pb.TransactionMode.Enveloped,
       maxInclusionFeePerGas: bigIntToBytes(BigInt.parse(maxInclusionFeePerGas)),
-      maxFeePerGas: bigIntToBytes(BigInt.parse(maxFeePerGas)),
-      gasLimit: bigIntToBytes(BigInt.parse(gasLimit)),
+      maxFeePerGas: bigIntToBytes(maxFeePerGas),
+      gasLimit: bigIntToBytes(gasLimit),
       toAddress: tokenContract, // yes here must be tokenContract
       transaction: ethereum_pb.Transaction(erc20Transfer: tx),
       privateKey: secretPrivateKey.data(),
-      nonce: bigIntToBytes(BigInt.parse(nonce)),
+      nonce: bigIntToBytes(BigInt.from(nonce)),
     );
     final sign = AnySigner.sign(signingInput.writeToBuffer(), coinType);
     final signingOutput = ethereum_pb.SigningOutput.fromBuffer(sign);
     final transaction = Transaction(
       rawTx: hex.encode(signingOutput.encoded),
-      networkFee: BigInt.parse(maxFeePerGas) * BigInt.parse(gasLimit),
+      networkFee: maxFeePerGas * gasLimit,
     );
     return transaction;
   }
@@ -211,36 +211,36 @@ class BuildTransaction {
   static Transaction ethereumLegacy({
     required HDWallet wallet,
     // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
-    required String amount,
+    required BigInt amount,
     required String toAddress,
-    required String nonce,
+    required int nonce,
     // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
-    String gasPrice = '13600000000',
+    required BigInt gasPrice,
     // price in wei = 10^(-18) BNB (or 10^(-9) gwei)
-    String gasLimit = '21000',
+    required BigInt gasLimit,
     int chainId = 56,
     int coinType = TWCoinType.TWCoinTypeSmartChain,
     String? data,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
-      amount: bigIntToBytes(BigInt.parse(amount)),
+      amount: bigIntToBytes(amount),
       data: data == null ? null : hex.decode(data.substring(2, data.length)),
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
-      gasPrice: bigIntToBytes(BigInt.parse(gasPrice)),
-      gasLimit: bigIntToBytes(BigInt.parse(gasLimit)),
+      gasPrice: bigIntToBytes(gasPrice),
+      gasLimit: bigIntToBytes(gasLimit),
       toAddress: toAddress,
       transaction: ethereum_pb.Transaction(transfer: tx),
       privateKey: secretPrivateKey.data(),
-      nonce: bigIntToBytes(BigInt.parse(nonce)),
+      nonce: bigIntToBytes(BigInt.from(nonce)),
     );
     final sign = AnySigner.sign(signingInput.writeToBuffer(), coinType);
     final signingOutput = ethereum_pb.SigningOutput.fromBuffer(sign);
     final transaction = Transaction(
       rawTx: hex.encode(signingOutput.encoded),
-      networkFee: BigInt.parse(gasPrice) * BigInt.parse(gasLimit),
+      networkFee: gasPrice * gasLimit,
     );
     return transaction;
   }
@@ -259,38 +259,38 @@ class BuildTransaction {
   static Transaction ethereumERC20TokenLegacy({
     required HDWallet wallet,
     // value in smallest denomination
-    required String amount,
+    required BigInt amount,
     required String tokenContract,
     required String toAddress,
-    required String nonce,
+    required int nonce,
     // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
-    String gasPrice = '3600000000',
+    required BigInt gasPrice,
     // price in wei = 10^(-18) BNB (or 10^(-9) gwei)
-    String gasLimit = '21000',
+    required BigInt gasLimit,
     int chainId = 56,
     int coinType = TWCoinType.TWCoinTypeSmartChain,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
 
     final tx = ethereum_pb.Transaction_ERC20Transfer(
-      amount: bigIntToBytes(BigInt.parse(amount)),
+      amount: bigIntToBytes(amount),
       to: toAddress,
     );
 
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
-      gasPrice: bigIntToBytes(BigInt.parse(gasPrice)),
-      gasLimit: bigIntToBytes(BigInt.parse(gasLimit)),
+      gasPrice: bigIntToBytes(gasPrice),
+      gasLimit: bigIntToBytes(gasLimit),
       toAddress: tokenContract, // yes here must be tokenContract
       transaction: ethereum_pb.Transaction(erc20Transfer: tx),
       privateKey: secretPrivateKey.data(),
-      nonce: bigIntToBytes(BigInt.parse(nonce)),
+      nonce: bigIntToBytes(BigInt.from(nonce)),
     );
     final sign = AnySigner.sign(signingInput.writeToBuffer(), coinType);
     final signingOutput = ethereum_pb.SigningOutput.fromBuffer(sign);
     final transaction = Transaction(
       rawTx: hex.encode(signingOutput.encoded),
-      networkFee: BigInt.parse(gasPrice) * BigInt.parse(gasLimit),
+      networkFee: gasPrice * gasLimit,
     );
     return transaction;
   }
@@ -301,15 +301,15 @@ class BuildTransaction {
   static Transaction solana({
     required HDWallet wallet,
     required String recipient,
-    required String amount,
+    required BigInt amount,
     required String latestBlockHash,
-    String fee = '5000',
+    required BigInt fee,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(TWCoinType.TWCoinTypeSolana);
 
     final tx = solana_pb.Transfer(
       recipient: recipient,
-      value: $fixnum.Int64.parseInt(amount),
+      value: $fixnum.Int64.parseInt(amount.toString()),
     );
     final signingInput = solana_pb.SigningInput(
       privateKey: secretPrivateKey.data().toList(),
@@ -323,7 +323,7 @@ class BuildTransaction {
     final signingOutput = solana_pb.SigningOutput.fromBuffer(sign);
     final transaction = Transaction(
       rawTx: signingOutput.encoded,
-      networkFee: BigInt.parse(fee),
+      networkFee: fee,
     );
     return transaction;
   }
@@ -336,10 +336,10 @@ class BuildTransaction {
     required HDWallet wallet,
     required String recipientSolanaAddress,
     required String tokenMintAddress,
-    required String amount,
+    required BigInt amount,
     required int decimals,
     required String latestBlockHash,
-    String fee = '5000',
+    required BigInt fee,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(TWCoinType.TWCoinTypeSolana);
 
@@ -355,7 +355,7 @@ class BuildTransaction {
       tokenMintAddress: tokenMintAddress,
       senderTokenAddress: senderTokenAddress,
       recipientTokenAddress: recipientTokenAddress,
-      amount: $fixnum.Int64.parseInt(amount),
+      amount: $fixnum.Int64.parseInt(amount.toString()),
       decimals: decimals,
     );
 
@@ -371,7 +371,7 @@ class BuildTransaction {
     final signingOutput = solana_pb.SigningOutput.fromBuffer(sign);
     final transaction = Transaction(
       rawTx: signingOutput.encoded,
-      networkFee: BigInt.parse(fee),
+      networkFee: fee,
     );
     return transaction;
   }
@@ -381,8 +381,8 @@ class BuildTransaction {
     required HDWallet wallet,
     required int coin,
     required String toAddress,
-    required String amount,
-    required String byteFee,
+    required BigInt amount,
+    required BigInt byteFee,
     required List utxo,
   }) {
     final changeAddress = wallet.getAddressForCoin(coin);
@@ -393,14 +393,14 @@ class BuildTransaction {
         ? int.parse(map1['value']).compareTo(int.parse(map2['value']))
         : (map1['satoshis'] as int).compareTo(map2['satoshis'] as int));
 
-    var minUtxoNeed = 0;
-    var minUtxoAmountNeed = 0;
+    int minUtxoNeed = 0;
+    BigInt minUtxoAmountNeed = BigInt.zero;
     for (var tx in utxo) {
-      if (minUtxoAmountNeed < int.parse(amount)) {
+      if (minUtxoAmountNeed < amount) {
         minUtxoNeed++;
         minUtxoAmountNeed += tx['value'] != null
-            ? int.parse(tx['value'])
-            : tx['satoshis'] as int;
+            ? BigInt.parse(tx['value'])
+            : BigInt.from(tx['satoshis']);
       } else {
         break;
       }
@@ -426,11 +426,11 @@ class BuildTransaction {
     }
 
     var signingInput = bitcoin_pb.SigningInput(
-      amount: $fixnum.Int64.parseInt(amount),
+      amount: $fixnum.Int64.parseInt(amount.toString()),
       hashType: BitcoinScript.hashTypeForCoin(coin),
       toAddress: toAddress,
       changeAddress: changeAddress,
-      byteFee: $fixnum.Int64.parseInt(byteFee),
+      byteFee: $fixnum.Int64.parseInt(byteFee.toString()),
       coinType: coin,
       utxo: utxoParsed,
       privateKey: [wallet.getKeyForCoin(coin).data().toList()],
@@ -439,10 +439,10 @@ class BuildTransaction {
       AnySigner.signerPlan(signingInput.writeToBuffer(), coin).toList(),
     );
 
-    while (
-        (int.parse(amount) + transactionPlan.fee.toInt() > minUtxoAmountNeed ||
-                transactionPlan.fee.toInt() == 0) &&
-            minUtxoNeed < utxo.length) {
+    while ((amount + BigInt.parse(transactionPlan.fee.toString()) >
+                minUtxoAmountNeed ||
+            transactionPlan.fee.toInt() == 0) &&
+        minUtxoNeed < utxo.length) {
       final txParsed = bitcoin_pb.UnspentTransaction(
         amount: utxo[minUtxoNeed]['value'] != null
             ? $fixnum.Int64.parseInt(utxo[minUtxoNeed]['value'])
@@ -458,15 +458,15 @@ class BuildTransaction {
       );
       utxoParsed.add(txParsed);
       minUtxoAmountNeed += utxo[minUtxoNeed]['value'] != null
-          ? int.parse(utxo[minUtxoNeed]['value'])
-          : utxo[minUtxoNeed]['satoshis'] as int;
+          ? BigInt.parse(utxo[minUtxoNeed]['value'])
+          : BigInt.from(utxo[minUtxoNeed]['satoshis']);
       minUtxoNeed++;
       signingInput = bitcoin_pb.SigningInput(
-        amount: $fixnum.Int64.parseInt(amount),
+        amount: $fixnum.Int64.parseInt(amount.toString()),
         hashType: BitcoinScript.hashTypeForCoin(coin),
         toAddress: toAddress,
         changeAddress: changeAddress,
-        byteFee: $fixnum.Int64.parseInt(byteFee),
+        byteFee: $fixnum.Int64.parseInt(byteFee.toString()),
         coinType: coin,
         utxo: utxoParsed,
         privateKey: [wallet.getKeyForCoin(coin).data().toList()],
@@ -478,7 +478,7 @@ class BuildTransaction {
 
     if (minUtxoNeed == utxo.length &&
         (transactionPlan.fee.toInt() == 0 ||
-            int.parse(amount) + transactionPlan.fee.toInt() >
+            amount + BigInt.parse(transactionPlan.fee.toString()) >
                 minUtxoAmountNeed)) {
       throw const LowTotalAmountPlusFeeException();
     }
