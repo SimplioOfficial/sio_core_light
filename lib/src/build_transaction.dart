@@ -113,12 +113,12 @@ class BuildTransaction {
     String gasLimit = '21000',
     int chainId = 1,
     int coinType = TWCoinType.TWCoinTypeEthereum,
-    List<int>? data,
+    String? data,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
       amount: bigIntToBytes(BigInt.parse(amount)),
-      data: data,
+      data: data == null ? null : hex.decode(data.substring(2, data.length)),
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
@@ -220,12 +220,12 @@ class BuildTransaction {
     String gasLimit = '21000',
     int chainId = 56,
     int coinType = TWCoinType.TWCoinTypeSmartChain,
-    List<int>? data,
+    String? data,
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
       amount: bigIntToBytes(BigInt.parse(amount)),
-      data: data,
+      data: data == null ? null : hex.decode(data.substring(2, data.length)),
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
