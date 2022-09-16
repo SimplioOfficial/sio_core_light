@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:bs58/bs58.dart';
 import 'package:convert/convert.dart';
@@ -469,8 +468,8 @@ void main() {
           EthSign.message(
             wallet: wallet,
             networkId: TWCoinType.TWCoinTypeEthereum,
-            message: Uint8List.fromList(hex.decode(
-                'f737d8ba29fa34adf29b88785edca25c873d6fb2eaa4e77394cab27131fa3284')),
+            message:
+                '0xf737d8ba29fa34adf29b88785edca25c873d6fb2eaa4e77394cab27131fa3284',
           ),
           equals(
               '0xce929bf4483308f0e23752d43cb45def3bfafefdaba1b328d8121969ac303fd955acc4dd5520f585ee3691e04e0917f99360fa24a8280805ff25aa879fb83ae81c'));
@@ -480,8 +479,8 @@ void main() {
           EthSign.personalMessage(
             wallet: wallet,
             networkId: TWCoinType.TWCoinTypeEthereum,
-            message: Uint8List.fromList(hex.decode(
-                '4d7920656d61696c206973206a6f686e40646f652e636f6d202d205468752c2031352053657020323032322031333a30383a313520474d54')),
+            message:
+                '0x4d7920656d61696c206973206a6f686e40646f652e636f6d202d205468752c2031352053657020323032322031333a30383a313520474d54',
           ),
           equals(
               '0x2913768a701ea3bea19b5d61d4b70758bf6b805869dea9425edc18e2efa2aa5c61add9bef273d29b4633972a1f35cc5efec23d7c8aeab358efedc2024d555bb01b'));
