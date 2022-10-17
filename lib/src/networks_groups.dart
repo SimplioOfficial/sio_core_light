@@ -8,6 +8,7 @@ class Cluster {
   static const List<int> ethereumLegacy = [
     TWCoinType.TWCoinTypeEthereumClassic,
     TWCoinType.TWCoinTypeSmartChain,
+    2000097, // SmartChain Testnet token
   ];
   static const List<int> ethereumEIP1559 = [
     TWCoinType.TWCoinTypeAvalancheCChain,
@@ -36,12 +37,14 @@ class EthChainId {
   static const ethereumClassic = 61;
   static const polygon = 137;
   static const bnbSmartChain = 56;
+  static const bnbSmartChainTestnet = 97;
 }
 
 /// Simplio asset IDs of the native cryptocurrency for each supported network.
 class SioAssetId {
   static const bitcoin = 1;
   static const bnbSmartChain = 7;
+  static const solana = 3;
 }
 
 class EthNetworks {
@@ -63,6 +66,8 @@ class EthNetworks {
         return EthChainId.polygon;
       case TWCoinType.TWCoinTypeSmartChain:
         return EthChainId.bnbSmartChain;
+      case 2000097:
+        return EthChainId.bnbSmartChainTestnet;
 
       default:
         throw Exception('Network ID is not supported');
@@ -87,6 +92,8 @@ class EthNetworks {
         return TWCoinType.TWCoinTypePolygon;
       case EthChainId.bnbSmartChain:
         return TWCoinType.TWCoinTypeSmartChain;
+      case EthChainId.bnbSmartChainTestnet:
+        return 2000097;
 
       default:
         throw Exception('Chain ID is not supported');
@@ -107,6 +114,10 @@ class Networks {
         return SioAssetId.bitcoin;
       case TWCoinType.TWCoinTypeSmartChain:
         return SioAssetId.bnbSmartChain;
+      case 2000097:
+        return SioAssetId.bnbSmartChain;
+      case TWCoinType.TWCoinTypeSolana:
+        return SioAssetId.solana;
 
       default:
         throw Exception('Network ID is not supported');
