@@ -2,9 +2,9 @@ import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart' as trust_core;
 
 /// Class that manipulates BIP39 English mnemonics.
 class Mnemonic {
-  final _wallet = trust_core.HDWallet(strength: 256);
+  final _wallet = trust_core.HDWallet();
 
-  /// Generate an 24 words valid BIP39 English mnemonic.
+  /// Generate an 12 words valid BIP39 English mnemonic.
   String get generate {
     return _wallet.mnemonic();
   }

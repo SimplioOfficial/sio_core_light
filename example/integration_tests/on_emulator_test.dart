@@ -31,8 +31,8 @@ void main() {
     test('Mnemonic of 24 words is valid', () {
       expect(Mnemonic.isValid(mnemonic: mnemonic24Words), equals(true));
     });
-    test('Generated mnemonic has 24 words', () {
-      expect(Mnemonic().generate.split(' ').length, equals(24));
+    test('Generated mnemonic has 12 words', () {
+      expect(Mnemonic().generate.split(' ').length, equals(12));
     });
     test('Import 12 seed mnemonic', () {
       expect(Mnemonic.import(mnemonic: mnemonic12Words).mnemonic(),
