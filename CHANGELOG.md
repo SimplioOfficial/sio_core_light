@@ -1,3 +1,6 @@
+## 1.1.5
+* Add bnb testnet in network groups
+* Generate 12 instead of 24 words mnemonic now
 ## 1.1.4
 * Improve arguments types
 ## 1.1.3
