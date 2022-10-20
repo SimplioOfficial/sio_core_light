@@ -1,3 +1,6 @@
+## 1.1.6
+* Remove bnb testnet from network groups
+* Implement public address validator for supported coins
 ## 1.1.5
 * Add bnb testnet in network groups
 * Generate 12 instead of 24 words mnemonic now
