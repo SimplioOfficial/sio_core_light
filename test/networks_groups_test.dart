@@ -8,7 +8,7 @@ void main() {
       expect(Cluster.cosmos, [118, 10000118]);
     });
     test('ethereumLegacy', () async {
-      expect(Cluster.ethereumLegacy, [61, 20000714, 2000097]);
+      expect(Cluster.ethereumLegacy, [61, 20000714]);
     });
     test('ethereumEIP1559', () async {
       expect(Cluster.ethereumEIP1559, [10009000, 60, 966]);
@@ -26,7 +26,6 @@ void main() {
     expect(EthChainId.ethereumClassic, 61);
     expect(EthChainId.polygon, 137);
     expect(EthChainId.bnbSmartChain, 56);
-    expect(EthChainId.bnbSmartChainTestnet, 97);
   });
 
   test('SioAssetId', () async {
@@ -49,8 +48,6 @@ void main() {
           EthChainId.polygon);
       expect(EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeSmartChain),
           EthChainId.bnbSmartChain);
-      expect(EthNetworks.chainId(networkId: 2000097),
-          EthChainId.bnbSmartChainTestnet);
 
       try {
         EthNetworks.chainId(networkId: 12312312312312);
@@ -69,8 +66,6 @@ void main() {
           TWCoinType.TWCoinTypePolygon);
       expect(EthNetworks.networkId(chainId: EthChainId.bnbSmartChain),
           TWCoinType.TWCoinTypeSmartChain);
-      expect(EthNetworks.networkId(chainId: EthChainId.bnbSmartChainTestnet),
-          2000097);
 
       try {
         EthNetworks.networkId(chainId: 12312312312312);
@@ -86,7 +81,6 @@ void main() {
           SioAssetId.bitcoin);
       expect(Networks.assetId(networkId: TWCoinType.TWCoinTypeSmartChain),
           SioAssetId.bnbSmartChain);
-      expect(Networks.assetId(networkId: 2000097), SioAssetId.bnbSmartChain);
       expect(Networks.assetId(networkId: TWCoinType.TWCoinTypeSolana),
           SioAssetId.solana);
 
