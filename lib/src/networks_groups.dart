@@ -115,4 +115,31 @@ class Networks {
         throw Exception('Network ID is not supported');
     }
   }
+
+  static List<int> get _supported {
+    return [
+      TWCoinType.TWCoinTypeCosmos,
+      TWCoinType.TWCoinTypeAvalancheCChain,
+      TWCoinType.TWCoinTypeBitcoinCash,
+      TWCoinType.TWCoinTypeSmartChain,
+      TWCoinType.TWCoinTypeBitcoin,
+      TWCoinType.TWCoinTypeDash,
+      TWCoinType.TWCoinTypeDigiByte,
+      TWCoinType.TWCoinTypeDogecoin,
+      TWCoinType.TWCoinTypeEthereumClassic,
+      TWCoinType.TWCoinTypeEthereum,
+      TWCoinType.TWCoinTypeZelcash,
+      TWCoinType.TWCoinTypeLitecoin,
+      TWCoinType.TWCoinTypeOsmosis,
+      TWCoinType.TWCoinTypePolygon,
+      TWCoinType.TWCoinTypeSolana,
+      TWCoinType.TWCoinTypeZcash
+    ];
+  }
+
+  static bool isSupported({
+    required int networkId,
+  }) {
+    return Networks._supported.contains(networkId);
+  }
 }

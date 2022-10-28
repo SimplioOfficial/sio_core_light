@@ -1,3 +1,5 @@
+## 1.1.7
+* Add supported network check
 ## 1.1.6
 * Remove bnb testnet from network groups
 * Implement public address validator for supported coins
