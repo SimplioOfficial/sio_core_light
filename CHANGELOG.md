@@ -1,3 +1,5 @@
+## 1.1.8
+* Fix Eth sign normal messages (not converted already to hex by the Dapp)
 ## 1.1.7
 * Add supported network check
 ## 1.1.6
