@@ -1617,6 +1617,14 @@ void main() {
           ),
           equals(
               '0xce929bf4483308f0e23752d43cb45def3bfafefdaba1b328d8121969ac303fd955acc4dd5520f585ee3691e04e0917f99360fa24a8280805ff25aa879fb83ae81c'));
+      expect(
+          EthSign.message(
+            wallet: wallet,
+            networkId: TWCoinType.TWCoinTypeEthereum,
+            message: 'We are Simplio!',
+          ),
+          equals(
+              '0xc925dc32a276bb6e4089bc161022f6a25819c29a31cf36fdcbcb489dba6f0e5105d77f17a021322f7cfa224a1f962929ff626396d886dd7d0af0bee946d1278d1b'));
     });
     test('Test personalMessage return correct signature', () {
       expect(
@@ -1628,6 +1636,14 @@ void main() {
           ),
           equals(
               '0x2913768a701ea3bea19b5d61d4b70758bf6b805869dea9425edc18e2efa2aa5c61add9bef273d29b4633972a1f35cc5efec23d7c8aeab358efedc2024d555bb01b'));
+      expect(
+          EthSign.personalMessage(
+            wallet: wallet,
+            networkId: TWCoinType.TWCoinTypeEthereum,
+            message: 'We are Simplio!',
+          ),
+          equals(
+              '0x6ac9dd87d1c807a5f69c7fb4b72992a25cf2eafcd2063ceda8b273950e43a95533219e419a0a9201691da1fc128716d282e83c6e9c1bcf3a453805ce628215701b'));
     });
   });
 }

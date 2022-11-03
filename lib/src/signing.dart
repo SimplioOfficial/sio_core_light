@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
@@ -35,10 +36,14 @@ class EthSign {
     required int networkId,
     required String message,
   }) {
+    String hexMessage = message;
+    if (message.substring(0, 2) != '0x') {
+      hexMessage = '0x${hex.encode(utf8.encode(message))}';
+    }
     return EthSigUtil.signMessage(
       privateKeyInBytes: wallet.getKeyForCoin(networkId).data(),
       message: Uint8List.fromList(hex.decode(
-        message.substring(2, message.length),
+        hexMessage.substring(2),
       )),
     );
   }
@@ -48,10 +53,14 @@ class EthSign {
     required int networkId,
     required String message,
   }) {
+    String hexMessage = message;
+    if (message.substring(0, 2) != '0x') {
+      hexMessage = '0x${hex.encode(utf8.encode(message))}';
+    }
     return EthSigUtil.signPersonalMessage(
       privateKeyInBytes: wallet.getKeyForCoin(networkId).data(),
       message: Uint8List.fromList(hex.decode(
-        message.substring(2, message.length),
+        hexMessage.substring(2),
       )),
     );
   }
