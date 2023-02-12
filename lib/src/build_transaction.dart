@@ -476,10 +476,7 @@ class BuildTransaction {
       );
     }
 
-    if (minUtxoNeed == utxo.length &&
-        (transactionPlan.fee.toInt() == 0 ||
-            amount + BigInt.parse(transactionPlan.fee.toString()) >
-                minUtxoAmountNeed)) {
+    if (minUtxoNeed == utxo.length && transactionPlan.fee.toInt() == 0) {
       throw const LowTotalAmountPlusFeeException();
     }
     signingInput.plan = transactionPlan;

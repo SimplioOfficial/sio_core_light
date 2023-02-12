@@ -1534,6 +1534,30 @@ void main() {
       });
     });
 
+    test('Valid utxoCoin signed max amount - blockbook', () async {
+      const coin = TWCoinType.TWCoinTypeLitecoin;
+      const toAddress = 'ltc1qhw80dfq2kvtd5qqqjrycjde2cj8jx07h98rj0z';
+      final amount = BigInt.from(39169);
+      // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
+      const utxoString =
+          '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
+      List utxo = jsonDecode(utxoString);
+      final signedUtxoCoinTx = BuildTransaction.utxoCoin(
+        wallet: wallet,
+        coin: coin,
+        toAddress: toAddress,
+        amount: amount,
+        byteFee: fee,
+        utxo: utxo,
+      );
+      expect(hex.decode(signedUtxoCoinTx.rawTx).length, 339);
+      expect(signedUtxoCoinTx.toJson(), {
+        'txid':
+            '01000000000102671c5acba4e09945409134f92c7811404ad14808ebc93e9c5a780d4ae5a85d6e000000000000000000f59ead966057be1c871f50f98cf21428c078eff962ae7efcf79ed8de55f473f8000000000000000000010d92000000000000160014bb8ef6a40ab316da000090c989372ac48f233fd702473044022035081f1a1f0572749e486cb6dd6548ac2ef0a4a55fac490e1f2e8eea78c69df6022033329399b4487e8b74c9ecbaa3fafd052facedc2c822e3423acd4de5bfbc991c012102a91d09121aff91972942758b4e827f18c27305af2085459555f989fbf105d496024730440220784ec5be3350e7bb414154afb028fb7e6bc4eaf56b9f99d8aea918cd223872f10220259e550dec11b4d13562999079a8c7abb6cccfce265b840c633769f47d183a73012102a91d09121aff91972942758b4e827f18c27305af2085459555f989fbf105d49600000000',
+        'networkFee': '1780'
+      });
+    });
+
     test('Valid utxoCoin transaction one additional utxo add - blockbook',
         () async {
       const coin = TWCoinType.TWCoinTypeLitecoin;
