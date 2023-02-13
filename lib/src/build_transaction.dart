@@ -386,6 +386,122 @@ class BuildTransaction {
     required List utxo,
   }) {
     final changeAddress = wallet.getAddressForCoin(coin);
+
+    utxo.sort((map1, map2) => map1['value'] != null
+        ? int.parse(map1['value']).compareTo(int.parse(map2['value']))
+        : (map1['satoshis'] as int).compareTo(map2['satoshis'] as int));
+
+    int minUtxoNeed = 0;
+    BigInt minUtxoAmountNeed = BigInt.zero;
+    for (var tx in utxo) {
+      if (minUtxoAmountNeed < amount) {
+        minUtxoNeed++;
+        minUtxoAmountNeed += tx['value'] != null
+            ? BigInt.parse(tx['value'])
+            : BigInt.from(tx['satoshis']);
+      } else {
+        break;
+      }
+    }
+    final minUtxo = utxo.take(minUtxoNeed).toList();
+
+    List<bitcoin_pb.UnspentTransaction> utxoParsed = [];
+    for (var index = 0; index < minUtxo.length; index++) {
+      final txParsed = bitcoin_pb.UnspentTransaction(
+        amount: minUtxo[index]['value'] != null
+            ? $fixnum.Int64.parseInt(minUtxo[index]['value'])
+            : $fixnum.Int64(minUtxo[index]['satoshis']),
+        outPoint: bitcoin_pb.OutPoint(
+          hash: hex.decode(minUtxo[index]['txid']).reversed.toList(),
+          index: minUtxo[index]['vout'],
+        ),
+        script: BitcoinScript.lockScriptForAddress(
+                wallet.getAddressForCoin(coin), coin)
+            .data()
+            .toList(),
+      );
+      utxoParsed.add(txParsed);
+    }
+
+    var signingInput = bitcoin_pb.SigningInput(
+      amount: $fixnum.Int64.parseInt(amount.toString()),
+      hashType: BitcoinScript.hashTypeForCoin(coin),
+      toAddress: toAddress,
+      changeAddress: changeAddress,
+      byteFee: $fixnum.Int64.parseInt(byteFee.toString()),
+      coinType: coin,
+      utxo: utxoParsed,
+      privateKey: [wallet.getKeyForCoin(coin).data().toList()],
+    );
+    var transactionPlan = bitcoin_pb.TransactionPlan.fromBuffer(
+      AnySigner.signerPlan(signingInput.writeToBuffer(), coin).toList(),
+    );
+
+    while ((amount + BigInt.parse(transactionPlan.fee.toString()) >
+                minUtxoAmountNeed ||
+            transactionPlan.fee.toInt() == 0) &&
+        minUtxoNeed < utxo.length) {
+      final txParsed = bitcoin_pb.UnspentTransaction(
+        amount: utxo[minUtxoNeed]['value'] != null
+            ? $fixnum.Int64.parseInt(utxo[minUtxoNeed]['value'])
+            : $fixnum.Int64(utxo[minUtxoNeed]['satoshis']),
+        outPoint: bitcoin_pb.OutPoint(
+          hash: hex.decode(utxo[minUtxoNeed]['txid']).reversed.toList(),
+          index: utxo[minUtxoNeed]['vout'],
+        ),
+        script: BitcoinScript.lockScriptForAddress(
+                wallet.getAddressForCoin(coin), coin)
+            .data()
+            .toList(),
+      );
+      utxoParsed.add(txParsed);
+      minUtxoAmountNeed += utxo[minUtxoNeed]['value'] != null
+          ? BigInt.parse(utxo[minUtxoNeed]['value'])
+          : BigInt.from(utxo[minUtxoNeed]['satoshis']);
+      minUtxoNeed++;
+      signingInput = bitcoin_pb.SigningInput(
+        amount: $fixnum.Int64.parseInt(amount.toString()),
+        hashType: BitcoinScript.hashTypeForCoin(coin),
+        toAddress: toAddress,
+        changeAddress: changeAddress,
+        byteFee: $fixnum.Int64.parseInt(byteFee.toString()),
+        coinType: coin,
+        utxo: utxoParsed,
+        privateKey: [wallet.getKeyForCoin(coin).data().toList()],
+      );
+      transactionPlan = bitcoin_pb.TransactionPlan.fromBuffer(
+        AnySigner.signerPlan(signingInput.writeToBuffer(), coin).toList(),
+      );
+    }
+
+    signingInput.plan = transactionPlan;
+    signingInput.amount = transactionPlan.amount;
+
+    final sign = AnySigner.sign(signingInput.writeToBuffer(), coin);
+    final signingOutput = bitcoin_pb.SigningOutput.fromBuffer(sign);
+    final inputs = minUtxoNeed;
+    final outputs = amount == minUtxoAmountNeed ? 1 : 2;
+    final networkFee = transactionPlan.fee.toInt() == 0
+        ? BigInt.zero
+        : feeCalculator(inputs, outputs, byteFee, coin);
+
+    final transaction = Transaction(
+      rawTx: hex.encode(signingOutput.encoded),
+      networkFee: networkFee,
+    );
+    return transaction;
+  }
+
+  /// Utxo coins transaction that handles exceptions.
+  static Transaction utxoCoinWithExceptionHandling({
+    required HDWallet wallet,
+    required int coin,
+    required String toAddress,
+    required BigInt amount,
+    required BigInt byteFee,
+    required List utxo,
+  }) {
+    final changeAddress = wallet.getAddressForCoin(coin);
     if (utxo.isEmpty) {
       throw const NoUtxoAvailableException();
     }
@@ -479,6 +595,7 @@ class BuildTransaction {
     if (minUtxoNeed == utxo.length && transactionPlan.fee.toInt() == 0) {
       throw const LowTotalAmountPlusFeeException();
     }
+
     signingInput.plan = transactionPlan;
     signingInput.amount = transactionPlan.amount;
 
