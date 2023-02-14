@@ -4,19 +4,19 @@ import 'package:trust_wallet_core_lib/trust_wallet_core_ffi.dart';
 
 void main() {
   group('Cluster - ', () {
-    test('Cosmos', () async {
+    test('Cosmos', () {
       expect(Cluster.cosmos, [118, 10000118]);
     });
-    test('ethereumLegacy', () async {
+    test('ethereumLegacy', () {
       expect(Cluster.ethereumLegacy, [61, 20000714]);
     });
-    test('ethereumEIP1559', () async {
+    test('ethereumEIP1559', () {
       expect(Cluster.ethereumEIP1559, [10009000, 60, 966]);
     });
-    test('Solana', () async {
+    test('Solana', () {
       expect(Cluster.solana, [501]);
     });
-    test('Utxo', () async {
+    test('Utxo', () {
       expect(Cluster.utxo, [0, 145, 5, 20, 3, 19167, 2, 133]);
     });
   });
@@ -28,14 +28,14 @@ void main() {
     expect(EthChainId.bnbSmartChain, 56);
   });
 
-  test('SioAssetId', () async {
+  test('SioAssetId', () {
     expect(SioAssetId.bitcoin, 1);
     expect(SioAssetId.bnbSmartChain, 7);
     expect(SioAssetId.solana, 3);
   });
 
   group('EthNetworks - ', () {
-    test('chainId', () async {
+    test('chainId', () {
       expect(
           EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeAvalancheCChain),
           EthChainId.avalancheCChain);
@@ -55,7 +55,7 @@ void main() {
         expect(exception, isA<Exception>());
       }
     });
-    test('networkId', () async {
+    test('networkId', () {
       expect(EthNetworks.networkId(chainId: EthChainId.avalancheCChain),
           TWCoinType.TWCoinTypeAvalancheCChain);
       expect(EthNetworks.networkId(chainId: EthChainId.ethereum),
@@ -76,7 +76,7 @@ void main() {
   });
 
   group('Networks - ', () {
-    test('assetId', () async {
+    test('assetId', () {
       expect(Networks.assetId(networkId: TWCoinType.TWCoinTypeBitcoin),
           SioAssetId.bitcoin);
       expect(Networks.assetId(networkId: TWCoinType.TWCoinTypeSmartChain),
@@ -90,7 +90,7 @@ void main() {
         expect(exception, isA<Exception>());
       }
     });
-    test('assetId', () async {
+    test('assetId', () {
       expect(
           Networks.isSupported(networkId: TWCoinType.TWCoinTypeCosmos), true);
       expect(
