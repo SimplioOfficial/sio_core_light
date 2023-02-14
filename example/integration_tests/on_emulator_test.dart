@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:bs58/bs58.dart';
 import 'package:convert/convert.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 import 'package:sio_core_light/sio_core_light.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_ffi.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart' as trust_core;
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   trust_core.TrustWalletCoreLib.init();
   trust_core.HDWallet wallet;
 
