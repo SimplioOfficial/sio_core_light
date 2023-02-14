@@ -15,7 +15,7 @@ void main() {
     throw Exception(['Mnemonic is not valid!']);
   }
 
-  group('Solana transactions tests - ', () {
+  group('Solana - ', () {
     const toAddress = '3fTR8GGL2mniGyHtd3Qy2KDVhZ9LHbW59rCc7A3RtBWk';
     const tokenMintAddress = 'SioTkQxHyAs98ouRiyi1YDv3gLMSrX3eNBg61GH7NrM';
     final amount = BigInt.from(4000);

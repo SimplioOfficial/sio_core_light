@@ -16,7 +16,7 @@ void main() {
     throw Exception(['Mnemonic is not valid!']);
   }
 
-  group('Ethereum transaction tests - ', () {
+  group('Ethereum - ', () {
     const toAddress = '0x3E26e7F73A80444e67b7bE654A38aB85ccb6ea47';
     final amount = BigInt.from(924400);
     final gasLimit = BigInt.from(21000);

@@ -18,7 +18,7 @@ void main() {
     throw Exception(['Mnemonic is not valid!']);
   }
 
-  group('utxoCoinWithExceptionHandling transaction tests - ', () {
+  group('utxoCoinWithExceptionHandling - ', () {
     final fee = BigInt.from(10);
     test('No utxo available - blockbook', () {
       const coin = TWCoinType.TWCoinTypeDogecoin;
@@ -219,7 +219,7 @@ void main() {
     });
   });
 
-  group('utxoCoin transaction tests - ', () {
+  group('utxoCoin - ', () {
     final fee = BigInt.from(10);
     test('No utxo available - blockbook', () {
       const coin = TWCoinType.TWCoinTypeDogecoin;

@@ -15,7 +15,7 @@ void main() {
     throw Exception(['Mnemonic is not valid!']);
   }
 
-  group('Cosmos transaction tests - ', () {
+  group('Cosmos - ', () {
     test('Osmosis', () {
       final signedOsmoTx = BuildTransaction.cosmos(
         wallet: wallet,
