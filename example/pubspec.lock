@@ -157,10 +157,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: "13a6ccf6a459a125b3fcdb6ec73bd5ff90822e071207c663bfd1f70062d51d18"
+      sha256: a38574032c5f1dd06c4aee541789906c12ccaab8ba01446e800d9c5b79c4a978
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.1"
   file:
     dependency: transitive
     description:
@@ -522,10 +522,10 @@ packages:
     dependency: "direct main"
     description:
       name: trust_wallet_core_lib
-      sha256: "468ff3eae7bde5d57ce34a6c0bcdd3f0276f7d5a377f3d50a52789a51676357d"
+      sha256: "28feea0f957fd9d268b8a29fa0e551121fea7eca52c963bddc6c05bef152308a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.6+2.9.6"
+    version: "0.0.7+3.0.4"
   typed_data:
     dependency: transitive
     description:
