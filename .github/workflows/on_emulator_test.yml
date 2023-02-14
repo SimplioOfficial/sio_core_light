@@ -9,7 +9,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [32]
+        api-level: [31]
 
     steps:
       - name: checkout
@@ -64,7 +64,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: cd example && flutter test integration_tests --coverage
+          script: cd example && flutter test integration_tests/on_emulator_test.dart --coverage
 
       - name: Upload emulator tests coverage to Codecov
         uses: codecov/codecov-action@v1
