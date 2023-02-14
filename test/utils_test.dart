@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('Utils - ', () {
-    test('Test BigInt into list of bytes conversion', () async {
+    test('Test BigInt into list of bytes conversion', () {
       expect(bigIntToBytes(BigInt.parse('100')), [100]);
       expect(bigIntToBytes(BigInt.parse('1000')), [3, 232]);
       expect(bigIntToBytes(BigInt.parse('10000')), [39, 16]);
