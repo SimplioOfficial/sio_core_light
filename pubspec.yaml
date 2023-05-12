@@ -8,6 +8,7 @@ environment:
   flutter: '>=2.5.0'
 
 dependencies:
+  collection: ^1.17.0
   convert: ^3.0.2
   eth_sig_util: ^0.0.9
   fixnum: ^1.0.1
