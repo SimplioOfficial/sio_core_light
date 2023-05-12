@@ -26,7 +26,10 @@ class Address {
         .firstWhereOrNull((prefix) => addressLowercase.startsWith('$prefix:'));
     if (usedPrefix != null &&
         (prefixToNetworkId[usedPrefix]?.contains(networkId) ?? false)) {
-      address = address.replaceFirst('$usedPrefix:', '');
+      address = address.replaceFirst(
+        RegExp('$usedPrefix:', caseSensitive: false),
+        '',
+      );
     }
 
     return address;
