@@ -1,7 +1,9 @@
+## 1.1.10
+* Add address parser for `bitcoin:<address>`, `bsc:<address>` and `ethereum:<address>`
 ## 1.1.9
 * Fix - Allow utxo transact full balance
-* Add utxoCoinWithExceptionHandling
-* utxoCoin does not throw exceptions now. They must be handled in main app.
+* Add `utxoCoinWithExceptionHandling`
+* `utxoCoin` does not throw exceptions now. They must be handled in main app.
 * Fix - transaction fee is now calculated inside sio_core_light not inherited from trust_wallet_core_lib
 ## 1.1.8
 * Fix Eth sign normal messages (not converted already to hex by the Dapp)
