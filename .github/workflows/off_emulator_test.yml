@@ -25,10 +25,4 @@ jobs:
         run: flutter format --output=none --set-exit-if-changed .
 
       - name: Run unit tests directly with flutter test
-        run: flutter test test --coverage
-
-      - name: Upload unit tests coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage/lcov.info
+        run: flutter test test
