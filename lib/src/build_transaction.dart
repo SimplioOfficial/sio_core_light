@@ -343,14 +343,11 @@ class BuildTransaction {
   }) {
     final secretPrivateKey = wallet.getKeyForCoin(TWCoinType.TWCoinTypeSolana);
 
-    final solanaAddress = SolanaAddress.createWithString(
-        wallet.getAddressForCoin(TWCoinType.TWCoinTypeSolana));
-    final senderTokenAddress =
-        solanaAddress.defaultTokenAddress(tokenMintAddress);
+    final solanaAddress = SolanaAddress.createWithString(wallet.getAddressForCoin(TWCoinType.TWCoinTypeSolana));
+    final senderTokenAddress = solanaAddress.defaultTokenAddress(tokenMintAddress);
 
     final recipientTokenAddress =
-        SolanaAddress.createWithString(recipientSolanaAddress)
-            .defaultTokenAddress(tokenMintAddress);
+        SolanaAddress.createWithString(recipientSolanaAddress).defaultTokenAddress(tokenMintAddress);
     final tx = solana_pb.TokenTransfer(
       tokenMintAddress: tokenMintAddress,
       senderTokenAddress: senderTokenAddress,
@@ -396,9 +393,7 @@ class BuildTransaction {
     for (var tx in utxo) {
       if (minUtxoAmountNeed < amount) {
         minUtxoNeed++;
-        minUtxoAmountNeed += tx['value'] != null
-            ? BigInt.parse(tx['value'])
-            : BigInt.from(tx['satoshis']);
+        minUtxoAmountNeed += tx['value'] != null ? BigInt.parse(tx['value']) : BigInt.from(tx['satoshis']);
       } else {
         break;
       }
@@ -415,10 +410,7 @@ class BuildTransaction {
           hash: hex.decode(minUtxo[index]['txid']).reversed.toList(),
           index: minUtxo[index]['vout'],
         ),
-        script: BitcoinScript.lockScriptForAddress(
-                wallet.getAddressForCoin(coin), coin)
-            .data()
-            .toList(),
+        script: BitcoinScript.lockScriptForAddress(wallet.getAddressForCoin(coin), coin).data().toList(),
       );
       utxoParsed.add(txParsed);
     }
@@ -437,8 +429,7 @@ class BuildTransaction {
       AnySigner.signerPlan(signingInput.writeToBuffer(), coin).toList(),
     );
 
-    while ((amount + BigInt.parse(transactionPlan.fee.toString()) >
-                minUtxoAmountNeed ||
+    while ((amount + BigInt.parse(transactionPlan.fee.toString()) > minUtxoAmountNeed ||
             transactionPlan.fee.toInt() == 0) &&
         minUtxoNeed < utxo.length) {
       final txParsed = bitcoin_pb.UnspentTransaction(
@@ -449,10 +440,7 @@ class BuildTransaction {
           hash: hex.decode(utxo[minUtxoNeed]['txid']).reversed.toList(),
           index: utxo[minUtxoNeed]['vout'],
         ),
-        script: BitcoinScript.lockScriptForAddress(
-                wallet.getAddressForCoin(coin), coin)
-            .data()
-            .toList(),
+        script: BitcoinScript.lockScriptForAddress(wallet.getAddressForCoin(coin), coin).data().toList(),
       );
       utxoParsed.add(txParsed);
       minUtxoAmountNeed += utxo[minUtxoNeed]['value'] != null
@@ -481,9 +469,7 @@ class BuildTransaction {
     final signingOutput = bitcoin_pb.SigningOutput.fromBuffer(sign);
     final inputs = minUtxoNeed;
     final outputs = amount == minUtxoAmountNeed ? 1 : 2;
-    final networkFee = transactionPlan.fee.toInt() == 0
-        ? BigInt.zero
-        : feeCalculator(inputs, outputs, byteFee, coin);
+    final networkFee = transactionPlan.fee.toInt() == 0 ? BigInt.zero : feeCalculator(inputs, outputs, byteFee, coin);
 
     final transaction = Transaction(
       rawTx: hex.encode(signingOutput.encoded),
@@ -514,9 +500,7 @@ class BuildTransaction {
     for (var tx in utxo) {
       if (minUtxoAmountNeed < amount) {
         minUtxoNeed++;
-        minUtxoAmountNeed += tx['value'] != null
-            ? BigInt.parse(tx['value'])
-            : BigInt.from(tx['satoshis']);
+        minUtxoAmountNeed += tx['value'] != null ? BigInt.parse(tx['value']) : BigInt.from(tx['satoshis']);
       } else {
         break;
       }
@@ -533,10 +517,7 @@ class BuildTransaction {
           hash: hex.decode(minUtxo[index]['txid']).reversed.toList(),
           index: minUtxo[index]['vout'],
         ),
-        script: BitcoinScript.lockScriptForAddress(
-                wallet.getAddressForCoin(coin), coin)
-            .data()
-            .toList(),
+        script: BitcoinScript.lockScriptForAddress(wallet.getAddressForCoin(coin), coin).data().toList(),
       );
       utxoParsed.add(txParsed);
     }
@@ -555,8 +536,7 @@ class BuildTransaction {
       AnySigner.signerPlan(signingInput.writeToBuffer(), coin).toList(),
     );
 
-    while ((amount + BigInt.parse(transactionPlan.fee.toString()) >
-                minUtxoAmountNeed ||
+    while ((amount + BigInt.parse(transactionPlan.fee.toString()) > minUtxoAmountNeed ||
             transactionPlan.fee.toInt() == 0) &&
         minUtxoNeed < utxo.length) {
       final txParsed = bitcoin_pb.UnspentTransaction(
@@ -567,10 +547,7 @@ class BuildTransaction {
           hash: hex.decode(utxo[minUtxoNeed]['txid']).reversed.toList(),
           index: utxo[minUtxoNeed]['vout'],
         ),
-        script: BitcoinScript.lockScriptForAddress(
-                wallet.getAddressForCoin(coin), coin)
-            .data()
-            .toList(),
+        script: BitcoinScript.lockScriptForAddress(wallet.getAddressForCoin(coin), coin).data().toList(),
       );
       utxoParsed.add(txParsed);
       minUtxoAmountNeed += utxo[minUtxoNeed]['value'] != null

@@ -34,8 +34,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late trust_core.HDWallet wallet;
 
-  final mnemonic =
-      'horror select baby exile convince sunset outside vehicle write decade powder energy';
+  final mnemonic = 'horror select baby exile convince sunset outside vehicle write decade powder energy';
 
   Future<String> example() async {
     if (Mnemonic.isValid(mnemonic: mnemonic)) {

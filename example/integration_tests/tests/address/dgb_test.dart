@@ -51,8 +51,7 @@ void main() {
       );
       expect(
         Address.isValid(
-          address:
-              'bc1qwqdg6squsna38e46795at95yu9atm8azzmyvckulcc7kytlcckxswvvzej',
+          address: 'bc1qwqdg6squsna38e46795at95yu9atm8azzmyvckulcc7kytlcckxswvvzej',
           networkId: TWCoinType.TWCoinTypeDigiByte,
         ),
         false,

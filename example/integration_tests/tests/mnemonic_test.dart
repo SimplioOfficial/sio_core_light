@@ -17,12 +17,10 @@ void main() {
       expect(Mnemonic().generate.split(' ').length, equals(12));
     });
     test('Import 12 seed mnemonic', () {
-      expect(Mnemonic.import(mnemonic: mnemonic12Words).mnemonic(),
-          equals(mnemonic12Words));
+      expect(Mnemonic.import(mnemonic: mnemonic12Words).mnemonic(), equals(mnemonic12Words));
     });
     test('Import 24 seed mnemonic', () {
-      expect(Mnemonic.import(mnemonic: mnemonic24Words).mnemonic(),
-          equals(mnemonic24Words));
+      expect(Mnemonic.import(mnemonic: mnemonic24Words).mnemonic(), equals(mnemonic24Words));
     });
   });
 }

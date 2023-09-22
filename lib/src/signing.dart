@@ -13,9 +13,7 @@ class EthSign {
     TypedDataVersion version = TypedDataVersion.V4,
   }) {
     return EthSigUtil.signTypedData(
-        privateKeyInBytes: wallet.getKeyForCoin(networkId).data(),
-        jsonData: jsonData,
-        version: version);
+        privateKeyInBytes: wallet.getKeyForCoin(networkId).data(), jsonData: jsonData, version: version);
   }
 
   static String personalTypedData({
