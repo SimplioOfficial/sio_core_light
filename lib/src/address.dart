@@ -6,7 +6,7 @@ import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart';
 const Map<String, List<int>> prefixToNetworkId = {
   'ethereum': Cluster.ethLegacyAndEIP1559,
   'bnb': [TWCoinType.TWCoinTypeSmartChain],
-  "bitcoin": Cluster.utxo,
+  'bitcoin': Cluster.utxo,
 };
 
 class Address {

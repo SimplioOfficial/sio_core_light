@@ -13,7 +13,10 @@ class EthSign {
     TypedDataVersion version = TypedDataVersion.V4,
   }) {
     return EthSigUtil.signTypedData(
-        privateKeyInBytes: wallet.getKeyForCoin(networkId).data(), jsonData: jsonData, version: version);
+      privateKeyInBytes: wallet.getKeyForCoin(networkId).data(),
+      jsonData: jsonData,
+      version: version,
+    );
   }
 
   static String personalTypedData({
@@ -34,15 +37,17 @@ class EthSign {
     required int networkId,
     required String message,
   }) {
-    String hexMessage = message;
+    var hexMessage = message;
     if (message.substring(0, 2) != '0x') {
       hexMessage = '0x${hex.encode(utf8.encode(message))}';
     }
     return EthSigUtil.signMessage(
       privateKeyInBytes: wallet.getKeyForCoin(networkId).data(),
-      message: Uint8List.fromList(hex.decode(
-        hexMessage.substring(2),
-      )),
+      message: Uint8List.fromList(
+        hex.decode(
+          hexMessage.substring(2),
+        ),
+      ),
     );
   }
 
@@ -51,15 +56,17 @@ class EthSign {
     required int networkId,
     required String message,
   }) {
-    String hexMessage = message;
+    var hexMessage = message;
     if (message.substring(0, 2) != '0x') {
       hexMessage = '0x${hex.encode(utf8.encode(message))}';
     }
     return EthSigUtil.signPersonalMessage(
       privateKeyInBytes: wallet.getKeyForCoin(networkId).data(),
-      message: Uint8List.fromList(hex.decode(
-        hexMessage.substring(2),
-      )),
+      message: Uint8List.fromList(
+        hex.decode(
+          hexMessage.substring(2),
+        ),
+      ),
     );
   }
 }
