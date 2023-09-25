@@ -1,10 +1,10 @@
 #!/bin/sh
 
-flutter pub get
+fvm flutter pub get
 
 # Off emulator tests
-flutter test
+fvm flutter test tests
 
 # On emulator tests
 cd example
-flutter test integration_tests
+fvm flutter test integration_tests/on_emulator_test.dart

@@ -9,8 +9,7 @@ import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart' as trust_core;
 void main() {
   trust_core.HDWallet wallet;
 
-  const mnemonic =
-      'horror select baby exile convince sunset outside vehicle write decade powder energy';
+  const mnemonic = 'horror select baby exile convince sunset outside vehicle write decade powder energy';
 
   if (Mnemonic.isValid(mnemonic: mnemonic)) {
     wallet = Mnemonic.import(mnemonic: mnemonic);
@@ -26,7 +25,7 @@ void main() {
       final amount = BigInt.from(1005000);
       // https://doge1.simplio.io/api/v2/utxo/DTbELQaWmv5KpFcNpZ9X9wy5RjQGL4YMm2
       const utxoString = '[]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       try {
         BuildTransaction.utxoCoinWithExceptionHandling(
           wallet: wallet,
@@ -47,7 +46,7 @@ void main() {
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       try {
         BuildTransaction.utxoCoinWithExceptionHandling(
           wallet: wallet,
@@ -67,7 +66,7 @@ void main() {
       final amount = BigInt.from(38900);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":29169,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       try {
         BuildTransaction.utxoCoinWithExceptionHandling(
           wallet: wallet,
@@ -88,7 +87,7 @@ void main() {
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoinWithExceptionHandling(
         wallet: wallet,
         coin: coin,
@@ -111,7 +110,7 @@ void main() {
       // https://explorer.runonflux.io/api/addr/t1byktNheu1vBB5YkwKY1zvQDcAt5c44v8w/utxo
       const utxoString =
           '[{"address":"t1byktNheu1vBB5YkwKY1zvQDcAt5c44v8w","txid":"d44de5df6f6e6581dd5a8a16f3b2f1dcd4e2637699d38864d29a9e1b050496ef","vout":0,"scriptPubKey":"76a914c69c2c2a50ddd8fc960a0ef0cc3cdac9a3d995bc88ac","amount":0.000114,"satoshis":11400,"height":1142791,"confirmations":69}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoinWithExceptionHandling(
         wallet: wallet,
         coin: coin,
@@ -134,7 +133,7 @@ void main() {
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoinWithExceptionHandling(
         wallet: wallet,
         coin: coin,
@@ -156,7 +155,7 @@ void main() {
       final amount = BigInt.from(39169);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":29169,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoinWithExceptionHandling(
         wallet: wallet,
         coin: coin,
@@ -179,7 +178,7 @@ void main() {
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoinWithExceptionHandling(
         wallet: wallet,
         coin: coin,
@@ -201,7 +200,7 @@ void main() {
       final amount = BigInt.from(9999);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":29169,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoinWithExceptionHandling(
         wallet: wallet,
         coin: coin,
@@ -227,7 +226,7 @@ void main() {
       final amount = BigInt.from(1005000);
       // https://doge1.simplio.io/api/v2/utxo/DTbELQaWmv5KpFcNpZ9X9wy5RjQGL4YMm2
       const utxoString = '[]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -245,7 +244,7 @@ void main() {
       final amount = BigInt.from(8261);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"10000","height":2252921,"confirmations":683}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -262,7 +261,7 @@ void main() {
       final amount = BigInt.from(8260);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":10000,"height":2252921,"confirmations":683}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -283,7 +282,7 @@ void main() {
       final amount = BigInt.from(37251);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"30000","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -301,7 +300,7 @@ void main() {
       final amount = BigInt.from(37250);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":30000,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -323,7 +322,7 @@ void main() {
       final amount = BigInt.from(95231);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"40000","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"30000","height":2252920,"confirmations":684},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"20000","height":2252920,"confirmations":684},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -340,7 +339,7 @@ void main() {
       final amount = BigInt.from(95230);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":40000,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":30000,"height":2252920,"confirmations":684},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":20000,"height":2252920,"confirmations":684},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -372,7 +371,7 @@ void main() {
             {"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684},
             {"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}
             ]''';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -400,7 +399,7 @@ void main() {
             {"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684},
             {"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}
             ]''';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -422,7 +421,7 @@ void main() {
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -445,7 +444,7 @@ void main() {
       // https://explorer.runonflux.io/api/addr/t1byktNheu1vBB5YkwKY1zvQDcAt5c44v8w/utxo
       const utxoString =
           '[{"address":"t1byktNheu1vBB5YkwKY1zvQDcAt5c44v8w","txid":"d44de5df6f6e6581dd5a8a16f3b2f1dcd4e2637699d38864d29a9e1b050496ef","vout":0,"scriptPubKey":"76a914c69c2c2a50ddd8fc960a0ef0cc3cdac9a3d995bc88ac","amount":0.000114,"satoshis":11400,"height":1142791,"confirmations":69}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -468,7 +467,7 @@ void main() {
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -490,7 +489,7 @@ void main() {
       final amount = BigInt.from(39169);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":29169,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -513,7 +512,7 @@ void main() {
       // https://ltc1.simplio.io/api/v2/utxo/ltc1qulzv02h8nmsuqxaqas3dv22cl244r7vs0smssh
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"value":"29169","height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"value":"10000","height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,
@@ -535,7 +534,7 @@ void main() {
       final amount = BigInt.from(9999);
       const utxoString =
           '[{"txid":"f873f455ded89ef7fc7eae62f9ef78c02814f28cf9501f871cbe576096ad9ef5","vout":0,"satoshis":29169,"height":2252921,"confirmations":683},{"txid":"6e5da8e54a0d785a9c3ec9eb0848d14a4011782cf93491404599e0a4cb5a1c67","vout":0,"satoshis":10000,"height":2252920,"confirmations":684}]';
-      List utxo = jsonDecode(utxoString);
+      final utxo = jsonDecode(utxoString) as List<dynamic>;
       final signedUtxoCoinTx = BuildTransaction.utxoCoin(
         wallet: wallet,
         coin: coin,

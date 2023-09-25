@@ -10,18 +10,6 @@
       "type": "dart",
       "program": "example/lib/main.dart",
       "args": []
-    },
-    {
-      "name": "sio_core_light (profile mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile"
-    },
-    {
-      "name": "sio_core_light (release mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release"
     }
   ]
 }

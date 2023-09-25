@@ -1,6 +1,4 @@
 name: Publish Package
-env:
-  FLUTTER_VERSION: '3.7.3'
 
 on:
   release:
@@ -13,10 +11,17 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: Install Flutter
+
+      - name: Use FVM
+        uses: kuhnroyal/flutter-fvm-config-action@v1
+        id: fvm-config-action
+
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+          channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+
       - name: Install dependencies
         run: flutter pub get
       - name: Analyze
