@@ -1,3 +1,6 @@
+## 1.1.11
+* Implement EIP1155 token transfer
+* Code refactor and update
 ## 1.1.10
 * Add address parser for `bitcoin:<address>`, `bsc:<address>` and `ethereum:<address>`
 ## 1.1.9
