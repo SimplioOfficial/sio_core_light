@@ -37,7 +37,7 @@ void main() {
         'networkFee': '285600000000000'
       });
     });
-    test('BSC token transaction', () {
+    test('BSC BEP20 token transaction', () {
       final gasPrice = BigInt.from(3600000000);
       final signedBscTx = BuildTransaction.ethereumERC20TokenLegacy(
         wallet: wallet,
@@ -52,6 +52,25 @@ void main() {
       expect(signedBscTx.toJson(), {
         'txid':
             'f8a98084d693a4008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b844a9059cbb0000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea4700000000000000000000000000000000000000000000000000000000000e1af08194a0cad73e551edf5e537ee7bad6cdf3e5454c70566b6ea7471b4df4360c364087afa02cfcc1d078171ebc87fc36b725d50f172d9414e50c15c87f59508101b8ae40ea',
+        'networkFee': '75600000000000'
+      });
+    });
+    test('BSC ERC1155 token transaction', () {
+      final gasPrice = BigInt.from(3600000000);
+      final signedBscTx = BuildTransaction.ethereumERC1155TokenLegacy(
+        wallet: wallet,
+        amount: amount,
+        tokenContract: tokenContract,
+        toAddress: toAddress,
+        nonce: 0,
+        gasPrice: gasPrice,
+        gasLimit: gasLimit,
+        tokenId: 1,
+      );
+      expect(hex.decode(signedBscTx.rawTx).length, 300);
+      expect(signedBscTx.toJson(), {
+        'txid':
+            'f901298084d693a4008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b8c4f242432a0000000000000000000000006a86087ee103dcc2494ca2804e4934b913df84e80000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea47000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000e1af000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000008193a0eb9221e2de44c78ce8f26a3b8c8342f87f740dc3b6e0ba16e7168068f4398ddba03e7d8c9d765082587abbeb8f413b4eb4062a3eb2dc53fb0f3863713bf65a3f05',
         'networkFee': '75600000000000'
       });
     });
@@ -87,6 +106,25 @@ void main() {
       expect(signedEthTx.toJson(), {
         'txid':
             '02f8af0180847735940085104c533c008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b844a9059cbb0000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea4700000000000000000000000000000000000000000000000000000000000e1af0c0019f167aba1c67d36ff746999a00c1e63925bb3d742e1ea2011ad9daa24bcf400ba059efe11b45173f678264e72b89efa480500aa4e4c8cce18a25c6897e96a25732',
+        'networkFee': '1470000000000000'
+      });
+    });
+    test('Ethereum ERC1155 token transaction', () {
+      final gasPrice = BigInt.from(70000000000);
+      final signedEthTx = BuildTransaction.ethereumERC1155TokenEIP1559(
+        wallet: wallet,
+        amount: amount,
+        tokenContract: tokenContract,
+        toAddress: toAddress,
+        nonce: 0,
+        maxFeePerGas: gasPrice,
+        gasLimit: gasLimit,
+        tokenId: 1,
+      );
+      expect(hex.decode(signedEthTx.rawTx).length, 308);
+      expect(signedEthTx.toJson(), {
+        'txid':
+            '02f901300180847735940085104c533c008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b8c4f242432a0000000000000000000000006a86087ee103dcc2494ca2804e4934b913df84e80000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea47000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000e1af000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000000c080a0dbafb02ffed3a0f3c92c851d3025bc1421a6a93bcabd0968d55676c4dc17305ba00d48df84c09eac3c06aed4fd9fc6e63336d5c476c65aadc1b9a1f7865e200cc6',
         'networkFee': '1470000000000000'
       });
     });
@@ -126,6 +164,27 @@ void main() {
       expect(signedBscTx.toJson(), {
         'txid':
             'f8aa8085012a05f2008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b844a9059cbb0000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea4700000000000000000000000000000000000000000000000000000000000e1af0819da0f70a466dd155e27fe815c1782cf8425161aabbdbe0c3019fa502b25558624ccfa077f19ea31dee23f491d9b21ee540ab113e4cafd85aa40f8fda013fa733121acf',
+        'networkFee': '105000000000000'
+      });
+    });
+    test('Ethereum Classic ERC1155 token transaction', () {
+      final gasPrice = BigInt.from(5000000000);
+      final signedBscTx = BuildTransaction.ethereumERC1155TokenLegacy(
+        wallet: wallet,
+        amount: amount,
+        tokenContract: tokenContract,
+        toAddress: toAddress,
+        nonce: 0,
+        gasPrice: gasPrice,
+        gasLimit: gasLimit,
+        tokenId: 1,
+        chainId: 61,
+        coinType: TWCoinType.TWCoinTypeEthereumClassic,
+      );
+      expect(hex.decode(signedBscTx.rawTx).length, 301);
+      expect(signedBscTx.toJson(), {
+        'txid':
+            'f9012a8085012a05f2008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b8c4f242432a0000000000000000000000009c35cd0398e9c8f61258ccdc822233da2d8228a20000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea47000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000e1af000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000000819da08fd68c525f990764d49f95dd111494b304e5c9af8da656bfdfbe9adcc3140aeda036cb27412af1d6a5bc4b522875671392a310f46596b04d328289b24a3241a303',
         'networkFee': '105000000000000'
       });
     });
@@ -170,6 +229,28 @@ void main() {
         'networkFee': '840000000000000'
       });
     });
+    test('Polygon ERC1155 token transaction', () {
+      final gasPrice = BigInt.from(40000000000);
+      final signedEthTx = BuildTransaction.ethereumERC1155TokenEIP1559(
+        wallet: wallet,
+        amount: amount,
+        tokenContract: tokenContract,
+        toAddress: toAddress,
+        nonce: 0,
+        maxInclusionFeePerGas: '30000000000',
+        maxFeePerGas: gasPrice,
+        gasLimit: gasLimit,
+        tokenId: 1,
+        chainId: 137,
+        coinType: TWCoinType.TWCoinTypePolygon,
+      );
+      expect(hex.decode(signedEthTx.rawTx).length, 310);
+      expect(signedEthTx.toJson(), {
+        'txid':
+            '02f901328189808506fc23ac008509502f90008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b8c4f242432a0000000000000000000000006a86087ee103dcc2494ca2804e4934b913df84e80000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea47000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000e1af000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000000c080a09d8ab5ac91abf554959d33a2ad92cb4203761435c322b775ca3e274160bd4ac3a00b669aca06474f27d6391294080a060bdb7d974fcaad95857d346ca9e16e4d1f',
+        'networkFee': '840000000000000'
+      });
+    });
     test('Avalanche native transaction', () {
       final gasPrice = BigInt.from(27500000000);
       final signedEthTx = BuildTransaction.ethereumEIP1559(
@@ -208,6 +289,28 @@ void main() {
       expect(signedEthTx.toJson(), {
         'txid':
             '02f8b282a86a80849502f90085066720b3008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b844a9059cbb0000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea4700000000000000000000000000000000000000000000000000000000000e1af0c001a0f21de0b51c54e36cb6c29159dc1b4739bfa9021f44da94ecb70b38dee96b5f6ba02cca47c558692f087fb3469b78c5c9dcbdc97746e37062c8686d95739002a859',
+        'networkFee': '577500000000000'
+      });
+    });
+    test('Avalanche ERC1155 token transaction', () {
+      final gasPrice = BigInt.from(27500000000);
+      final signedEthTx = BuildTransaction.ethereumERC1155TokenEIP1559(
+        wallet: wallet,
+        amount: amount,
+        tokenContract: tokenContract,
+        toAddress: toAddress,
+        nonce: 0,
+        maxInclusionFeePerGas: '2500000000',
+        maxFeePerGas: gasPrice,
+        gasLimit: gasLimit,
+        tokenId: 1,
+        chainId: 43114,
+        coinType: TWCoinType.TWCoinTypeAvalancheCChain,
+      );
+      expect(hex.decode(signedEthTx.rawTx).length, 310);
+      expect(signedEthTx.toJson(), {
+        'txid':
+            '02f9013282a86a80849502f90085066720b3008252089426fc591fecc4948c4288d95b6aadab00eba4e72a80b8c4f242432a0000000000000000000000006a86087ee103dcc2494ca2804e4934b913df84e80000000000000000000000003e26e7f73a80444e67b7be654a38ab85ccb6ea47000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000e1af000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000000c080a081b8f017594b51c2146c6d27a3e8804ffaa43e6a6a21506e231214b4d191bfaca0670fbe9b6014eff08819d933f7633a860a6e5e15f3600a7dbf52b40b84d7e949',
         'networkFee': '577500000000000'
       });
     });
