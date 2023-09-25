@@ -10,8 +10,8 @@ analyze:
 format:
 	fvm dart format . --line-length 120
 
-test:
-	fvm flutter test tests
+tests:
+	fvm flutter test
 
 integration-tests:
 	cd example && fvm flutter test integration_tests/on_emulator_test.dart

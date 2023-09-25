@@ -28,4 +28,4 @@ jobs:
         run: dart format --line-length 120 --output=none --set-exit-if-changed .
 
       - name: Run unit tests directly with flutter test
-        run: flutter test tests
+        run: flutter test
