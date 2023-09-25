@@ -5,7 +5,8 @@
 class NoUtxoAvailableException implements Exception {
   const NoUtxoAvailableException();
   @override
-  String toString() => 'NoUtxoAvailableException: Current address has no utxo available.';
+  String toString() =>
+      'NoUtxoAvailableException: Current address has no utxo available.';
 }
 
 /// Total amount in the address is lower than the amount

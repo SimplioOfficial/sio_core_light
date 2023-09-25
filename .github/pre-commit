@@ -21,7 +21,7 @@ fi
 
 # Dart formatter
 printf "\e[33;1m%s\e[0m\n" '=== Running Dart Formatter ==='
-dart format --line-length 120 .
+dart format .
 
 hasNewFilesFormatted=$(git diff)
 if [ -n "$hasNewFilesFormatted" ]; then

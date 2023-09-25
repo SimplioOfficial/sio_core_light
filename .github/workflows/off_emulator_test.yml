@@ -25,7 +25,7 @@ jobs:
       - name: Analyze files
         run: flutter analyze
       - name: Verify formatting
-        run: dart format --line-length 120 --output=none --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed .
 
       - name: Run unit tests directly with flutter test
         run: flutter test
