@@ -14,7 +14,9 @@ void main() {
       expect(bigIntToBytes(BigInt.parse('1000000000')), [59, 154, 202, 0]);
       expect(bigIntToBytes(BigInt.parse('10000000000')), [2, 84, 11, 228, 0]);
       expect(
-          bigIntToBytes(BigInt.parse('100000000000')), [23, 72, 118, 232, 0]);
+        bigIntToBytes(BigInt.parse('100000000000')),
+        [23, 72, 118, 232, 0],
+      );
     });
   });
 }

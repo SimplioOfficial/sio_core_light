@@ -461,7 +461,8 @@ class BuildTransaction {
     final secretPrivateKey = wallet.getKeyForCoin(TWCoinType.TWCoinTypeSolana);
 
     final solanaAddress = SolanaAddress.createWithString(
-        wallet.getAddressForCoin(TWCoinType.TWCoinTypeSolana));
+      wallet.getAddressForCoin(TWCoinType.TWCoinTypeSolana),
+    );
     final senderTokenAddress =
         solanaAddress.defaultTokenAddress(tokenMintAddress);
 
@@ -536,9 +537,9 @@ class BuildTransaction {
           index: minUtxo[index]['vout'] as int,
         ),
         script: BitcoinScript.lockScriptForAddress(
-                wallet.getAddressForCoin(coin), coin)
-            .data()
-            .toList(),
+          wallet.getAddressForCoin(coin),
+          coin,
+        ).data().toList(),
       );
       utxoParsed.add(txParsed);
     }
@@ -571,9 +572,9 @@ class BuildTransaction {
           index: utxo[minUtxoNeed]['vout'] as int,
         ),
         script: BitcoinScript.lockScriptForAddress(
-                wallet.getAddressForCoin(coin), coin)
-            .data()
-            .toList(),
+          wallet.getAddressForCoin(coin),
+          coin,
+        ).data().toList(),
       );
       utxoParsed.add(txParsed);
       minUtxoAmountNeed += utxo[minUtxoNeed]['value'] != null
@@ -659,9 +660,9 @@ class BuildTransaction {
           index: minUtxo[index]['vout'] as int,
         ),
         script: BitcoinScript.lockScriptForAddress(
-                wallet.getAddressForCoin(coin), coin)
-            .data()
-            .toList(),
+          wallet.getAddressForCoin(coin),
+          coin,
+        ).data().toList(),
       );
       utxoParsed.add(txParsed);
     }
@@ -694,9 +695,9 @@ class BuildTransaction {
           index: utxo[minUtxoNeed]['vout'] as int,
         ),
         script: BitcoinScript.lockScriptForAddress(
-                wallet.getAddressForCoin(coin), coin)
-            .data()
-            .toList(),
+          wallet.getAddressForCoin(coin),
+          coin,
+        ).data().toList(),
       );
       utxoParsed.add(txParsed);
       minUtxoAmountNeed += utxo[minUtxoNeed]['value'] != null
