@@ -118,7 +118,7 @@ class BuildTransaction {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
       amount: bigIntToBytes(amount),
-      data: data == null ? null : hex.decode(data.substring(2, data.length)),
+      data: data == null ? null : hex.decode(data.substring(2)),
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
@@ -183,8 +183,70 @@ class BuildTransaction {
       maxInclusionFeePerGas: bigIntToBytes(BigInt.parse(maxInclusionFeePerGas)),
       maxFeePerGas: bigIntToBytes(maxFeePerGas),
       gasLimit: bigIntToBytes(gasLimit),
-      toAddress: tokenContract, // yes here must be tokenContract
+      toAddress: tokenContract,
       transaction: ethereum_pb.Transaction(erc20Transfer: tx),
+      privateKey: secretPrivateKey.data(),
+      nonce: bigIntToBytes(BigInt.from(nonce)),
+    );
+    final sign = AnySigner.sign(signingInput.writeToBuffer(), coinType);
+    final signingOutput = ethereum_pb.SigningOutput.fromBuffer(sign);
+    final transaction = Transaction(
+      rawTx: hex.encode(signingOutput.encoded),
+      networkFee: maxFeePerGas * gasLimit,
+    );
+    return transaction;
+  }
+
+  /// Ethereum ERC1155 token transactions.
+  /// EIP-1559 type transaction.
+  ///
+  /// Works with AVAX, ETH, MATIC
+  ///
+  /// * `amount` value in smallest denomination.
+  /// * `maxInclusionFeePerGas`, `maxFeePerGas`  and `gasLimit` values in wei.
+  /// * `maxInclusionFeePerGas` = `Max Priority Fee Per Gas`
+  /// * `maxFeePerGas` = `Base Fee Per Gas` + `Max Priority Fee Per Gas`
+  ///
+  /// ChainIds for mainnet:
+  /// * AVAX = 43114
+  /// * ETH = 1
+  /// * MATIC = 137
+  static Transaction ethereumERC1155TokenEIP1559({
+    required HDWallet wallet,
+    // value in smallest denomination
+    required BigInt amount,
+    required String tokenContract,
+    required String toAddress,
+    required int nonce,
+    // value in wei = 10^(-18) ETH (or 10^(-9) gwei)
+    String maxInclusionFeePerGas = '2000000000',
+    // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
+    required BigInt maxFeePerGas,
+    // price in wei = 10^(-18) ETH (or 10^(-9) gwei)
+    required BigInt gasLimit,
+    required int tokenId,
+    int chainId = 1,
+    int coinType = TWCoinType.TWCoinTypeEthereum,
+    String? data,
+  }) {
+    final secretPrivateKey = wallet.getKeyForCoin(coinType);
+
+    final tx = ethereum_pb.Transaction_ERC1155Transfer(
+      from: wallet.getAddressForCoin(coinType),
+      to: toAddress,
+      tokenId: bigIntToBytes(BigInt.from(tokenId)),
+      value: bigIntToBytes(amount),
+      data: data == null ? null : hex.decode(data.substring(2)),
+    );
+
+    final signingInput = ethereum_pb.SigningInput(
+      chainId: bigIntToBytes(BigInt.from(chainId)),
+      txMode: ethereum_pb.TransactionMode.Enveloped,
+      maxInclusionFeePerGas: bigIntToBytes(BigInt.parse(maxInclusionFeePerGas)),
+      maxFeePerGas: bigIntToBytes(maxFeePerGas),
+      gasLimit: bigIntToBytes(gasLimit),
+      toAddress: tokenContract,
+      transaction: ethereum_pb.Transaction(erc1155Transfer: tx),
       privateKey: secretPrivateKey.data(),
       nonce: bigIntToBytes(BigInt.from(nonce)),
     );
@@ -225,7 +287,7 @@ class BuildTransaction {
     final secretPrivateKey = wallet.getKeyForCoin(coinType);
     final tx = ethereum_pb.Transaction_Transfer(
       amount: bigIntToBytes(amount),
-      data: data == null ? null : hex.decode(data.substring(2, data.length)),
+      data: data == null ? null : hex.decode(data.substring(2)),
     );
     final signingInput = ethereum_pb.SigningInput(
       chainId: bigIntToBytes(BigInt.from(chainId)),
@@ -281,8 +343,63 @@ class BuildTransaction {
       chainId: bigIntToBytes(BigInt.from(chainId)),
       gasPrice: bigIntToBytes(gasPrice),
       gasLimit: bigIntToBytes(gasLimit),
-      toAddress: tokenContract, // yes here must be tokenContract
+      toAddress: tokenContract,
       transaction: ethereum_pb.Transaction(erc20Transfer: tx),
+      privateKey: secretPrivateKey.data(),
+      nonce: bigIntToBytes(BigInt.from(nonce)),
+    );
+    final sign = AnySigner.sign(signingInput.writeToBuffer(), coinType);
+    final signingOutput = ethereum_pb.SigningOutput.fromBuffer(sign);
+    final transaction = Transaction(
+      rawTx: hex.encode(signingOutput.encoded),
+      networkFee: gasPrice * gasLimit,
+    );
+    return transaction;
+  }
+
+  /// Ethereum ERC1155 token transactions.
+  /// Legacy type transaction.
+  ///
+  /// Works with BSC, ETC
+  ///
+  /// * `amount` value in smallest denomination.
+  /// * `gasPrice` and `gasLimit` values in wei.
+  ///
+  /// ChainIds for mainnet:
+  /// * BSC = 56
+  /// * ETC = 61
+  static Transaction ethereumERC1155TokenLegacy({
+    required HDWallet wallet,
+    // value in smallest denomination
+    required BigInt amount,
+    required String tokenContract,
+    required String toAddress,
+    required int nonce,
+    // value in wei = 10^(-18) BNB (or 10^(-9) gwei)
+    required BigInt gasPrice,
+    // price in wei = 10^(-18) BNB (or 10^(-9) gwei)
+    required BigInt gasLimit,
+    required int tokenId,
+    int chainId = 56,
+    int coinType = TWCoinType.TWCoinTypeSmartChain,
+    String? data,
+  }) {
+    final secretPrivateKey = wallet.getKeyForCoin(coinType);
+
+    final tx = ethereum_pb.Transaction_ERC1155Transfer(
+      from: wallet.getAddressForCoin(coinType),
+      to: toAddress,
+      tokenId: bigIntToBytes(BigInt.from(tokenId)),
+      value: bigIntToBytes(amount),
+      data: data == null ? null : hex.decode(data.substring(2)),
+    );
+
+    final signingInput = ethereum_pb.SigningInput(
+      chainId: bigIntToBytes(BigInt.from(chainId)),
+      gasPrice: bigIntToBytes(gasPrice),
+      gasLimit: bigIntToBytes(gasLimit),
+      toAddress: tokenContract,
+      transaction: ethereum_pb.Transaction(erc1155Transfer: tx),
       privateKey: secretPrivateKey.data(),
       nonce: bigIntToBytes(BigInt.from(nonce)),
     );
