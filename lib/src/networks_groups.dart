@@ -15,7 +15,10 @@ class Cluster {
     TWCoinType.TWCoinTypePolygon
   ];
 
-  static const List<int> ethLegacyAndEIP1559 = [...ethereumLegacy, ...ethereumEIP1559];
+  static const List<int> ethLegacyAndEIP1559 = [
+    ...ethereumLegacy,
+    ...ethereumEIP1559
+  ];
 
   static const List<int> solana = [
     TWCoinType.TWCoinTypeSolana,

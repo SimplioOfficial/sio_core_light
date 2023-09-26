@@ -11,22 +11,34 @@ const double _decredBytesPerOutput = 38;
 const double _decredBytesBase = 12;
 
 BigInt _decredFeeCalculator(int inputs, int outputs, BigInt byteFee) {
-  final txSize =
-      BigInt.from((_decredBytesPerInput * inputs + _decredBytesPerOutput * outputs + _decredBytesBase).ceil());
+  final txSize = BigInt.from(
+    (_decredBytesPerInput * inputs +
+            _decredBytesPerOutput * outputs +
+            _decredBytesBase)
+        .ceil(),
+  );
 
   return txSize * byteFee;
 }
 
 BigInt _defaultFeeCalculator(int inputs, int outputs, BigInt byteFee) {
-  final txSize =
-      BigInt.from((_defaultBytesPerInput * inputs + _defaultBytesPerOutput * outputs + _defaultBytesBase).ceil());
+  final txSize = BigInt.from(
+    (_defaultBytesPerInput * inputs +
+            _defaultBytesPerOutput * outputs +
+            _defaultBytesBase)
+        .ceil(),
+  );
 
   return txSize * byteFee;
 }
 
 BigInt _segwitFeeCalculator(int inputs, int outputs, BigInt byteFee) {
-  final txSize =
-      BigInt.from((_segwitBytesPerInput * inputs + _segwitBytesPerOutput * outputs + _segwitBytesBase).ceil());
+  final txSize = BigInt.from(
+    (_segwitBytesPerInput * inputs +
+            _segwitBytesPerOutput * outputs +
+            _segwitBytesBase)
+        .ceil(),
+  );
 
   return txSize * byteFee;
 }

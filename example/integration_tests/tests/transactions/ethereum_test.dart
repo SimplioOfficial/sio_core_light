@@ -7,7 +7,8 @@ import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart' as trust_core;
 void main() {
   trust_core.HDWallet wallet;
 
-  const mnemonic = 'horror select baby exile convince sunset outside vehicle write decade powder energy';
+  const mnemonic =
+      'horror select baby exile convince sunset outside vehicle write decade powder energy';
 
   if (Mnemonic.isValid(mnemonic: mnemonic)) {
     wallet = Mnemonic.import(mnemonic: mnemonic);

@@ -8,7 +8,7 @@ analyze:
 	fvm dart analyze
 
 format:
-	fvm dart format . --line-length 120
+	fvm dart format .
 
 tests:
 	fvm flutter test

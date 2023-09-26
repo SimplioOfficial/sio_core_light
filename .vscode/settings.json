@@ -1,8 +1,4 @@
 {
-  "dart.lineLength": 120,
-  "[dart]": {
-    "editor.rulers": [120]
-  },
   "dart.flutterSdkPath": ".fvm/flutter_sdk",
   // Remove .fvm files from search
   "search.exclude": {

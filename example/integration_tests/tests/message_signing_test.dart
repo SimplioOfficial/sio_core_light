@@ -6,7 +6,8 @@ import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart' as trust_core;
 void main() {
   trust_core.HDWallet wallet;
 
-  const mnemonic = 'horror select baby exile convince sunset outside vehicle write decade powder energy';
+  const mnemonic =
+      'horror select baby exile convince sunset outside vehicle write decade powder energy';
 
   if (Mnemonic.isValid(mnemonic: mnemonic)) {
     wallet = Mnemonic.import(mnemonic: mnemonic);
@@ -42,7 +43,8 @@ void main() {
           EthSign.message(
             wallet: wallet,
             networkId: TWCoinType.TWCoinTypeEthereum,
-            message: '0xf737d8ba29fa34adf29b88785edca25c873d6fb2eaa4e77394cab27131fa3284',
+            message:
+                '0xf737d8ba29fa34adf29b88785edca25c873d6fb2eaa4e77394cab27131fa3284',
           ),
           equals(
               '0xce929bf4483308f0e23752d43cb45def3bfafefdaba1b328d8121969ac303fd955acc4dd5520f585ee3691e04e0917f99360fa24a8280805ff25aa879fb83ae81c'));

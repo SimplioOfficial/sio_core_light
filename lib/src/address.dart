@@ -22,8 +22,10 @@ class Address {
     required int networkId,
   }) {
     final addressLowercase = address.toLowerCase();
-    final usedPrefix = prefixToNetworkId.keys.firstWhereOrNull((prefix) => addressLowercase.startsWith('$prefix:'));
-    if (usedPrefix != null && (prefixToNetworkId[usedPrefix]?.contains(networkId) ?? false)) {
+    final usedPrefix = prefixToNetworkId.keys
+        .firstWhereOrNull((prefix) => addressLowercase.startsWith('$prefix:'));
+    if (usedPrefix != null &&
+        (prefixToNetworkId[usedPrefix]?.contains(networkId) ?? false)) {
       address = address.replaceFirst(
         RegExp('$usedPrefix:', caseSensitive: false),
         '',

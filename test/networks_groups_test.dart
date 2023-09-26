@@ -36,11 +36,26 @@ void main() {
 
   group('EthNetworks - ', () {
     test('chainId', () {
-      expect(EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeAvalancheCChain), EthChainId.avalancheCChain);
-      expect(EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeEthereum), EthChainId.ethereum);
-      expect(EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeEthereumClassic), EthChainId.ethereumClassic);
-      expect(EthNetworks.chainId(networkId: TWCoinType.TWCoinTypePolygon), EthChainId.polygon);
-      expect(EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeSmartChain), EthChainId.bnbSmartChain);
+      expect(
+        EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeAvalancheCChain),
+        EthChainId.avalancheCChain,
+      );
+      expect(
+        EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeEthereum),
+        EthChainId.ethereum,
+      );
+      expect(
+        EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeEthereumClassic),
+        EthChainId.ethereumClassic,
+      );
+      expect(
+        EthNetworks.chainId(networkId: TWCoinType.TWCoinTypePolygon),
+        EthChainId.polygon,
+      );
+      expect(
+        EthNetworks.chainId(networkId: TWCoinType.TWCoinTypeSmartChain),
+        EthChainId.bnbSmartChain,
+      );
 
       try {
         EthNetworks.chainId(networkId: 12312312312312);
@@ -49,11 +64,26 @@ void main() {
       }
     });
     test('networkId', () {
-      expect(EthNetworks.networkId(chainId: EthChainId.avalancheCChain), TWCoinType.TWCoinTypeAvalancheCChain);
-      expect(EthNetworks.networkId(chainId: EthChainId.ethereum), TWCoinType.TWCoinTypeEthereum);
-      expect(EthNetworks.networkId(chainId: EthChainId.ethereumClassic), TWCoinType.TWCoinTypeEthereumClassic);
-      expect(EthNetworks.networkId(chainId: EthChainId.polygon), TWCoinType.TWCoinTypePolygon);
-      expect(EthNetworks.networkId(chainId: EthChainId.bnbSmartChain), TWCoinType.TWCoinTypeSmartChain);
+      expect(
+        EthNetworks.networkId(chainId: EthChainId.avalancheCChain),
+        TWCoinType.TWCoinTypeAvalancheCChain,
+      );
+      expect(
+        EthNetworks.networkId(chainId: EthChainId.ethereum),
+        TWCoinType.TWCoinTypeEthereum,
+      );
+      expect(
+        EthNetworks.networkId(chainId: EthChainId.ethereumClassic),
+        TWCoinType.TWCoinTypeEthereumClassic,
+      );
+      expect(
+        EthNetworks.networkId(chainId: EthChainId.polygon),
+        TWCoinType.TWCoinTypePolygon,
+      );
+      expect(
+        EthNetworks.networkId(chainId: EthChainId.bnbSmartChain),
+        TWCoinType.TWCoinTypeSmartChain,
+      );
 
       try {
         EthNetworks.networkId(chainId: 12312312312312);
@@ -65,9 +95,18 @@ void main() {
 
   group('Networks - ', () {
     test('assetId', () {
-      expect(Networks.assetId(networkId: TWCoinType.TWCoinTypeBitcoin), SioAssetId.bitcoin);
-      expect(Networks.assetId(networkId: TWCoinType.TWCoinTypeSmartChain), SioAssetId.bnbSmartChain);
-      expect(Networks.assetId(networkId: TWCoinType.TWCoinTypeSolana), SioAssetId.solana);
+      expect(
+        Networks.assetId(networkId: TWCoinType.TWCoinTypeBitcoin),
+        SioAssetId.bitcoin,
+      );
+      expect(
+        Networks.assetId(networkId: TWCoinType.TWCoinTypeSmartChain),
+        SioAssetId.bnbSmartChain,
+      );
+      expect(
+        Networks.assetId(networkId: TWCoinType.TWCoinTypeSolana),
+        SioAssetId.solana,
+      );
 
       try {
         Networks.assetId(networkId: 1212312312312123123);
@@ -76,24 +115,75 @@ void main() {
       }
     });
     test('assetId', () {
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeCosmos), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeAvalancheCChain), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeBitcoinCash), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeSmartChain), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeBitcoin), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeDash), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeDigiByte), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeDogecoin), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeEthereumClassic), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeEthereum), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeZelcash), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeLitecoin), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeOsmosis), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypePolygon), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeSolana), true);
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeZcash), true);
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeCosmos),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeAvalancheCChain),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeBitcoinCash),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeSmartChain),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeBitcoin),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeDash),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeDigiByte),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeDogecoin),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeEthereumClassic),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeEthereum),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeZelcash),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeLitecoin),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeOsmosis),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypePolygon),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeSolana),
+        true,
+      );
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeZcash),
+        true,
+      );
 
-      expect(Networks.isSupported(networkId: TWCoinType.TWCoinTypeSmartChainLegacy), false);
+      expect(
+        Networks.isSupported(networkId: TWCoinType.TWCoinTypeSmartChainLegacy),
+        false,
+      );
     });
   });
 }
