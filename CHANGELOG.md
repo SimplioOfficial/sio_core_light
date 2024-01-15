@@ -1,3 +1,5 @@
+## 1.1.12
+* Implement support for polygon
 ## 1.1.11
 * Implement EIP1155 token transfer
 * Code refactor and update

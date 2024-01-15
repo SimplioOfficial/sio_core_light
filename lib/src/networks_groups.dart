@@ -5,10 +5,12 @@ class Cluster {
     TWCoinType.TWCoinTypeCosmos,
     TWCoinType.TWCoinTypeOsmosis,
   ];
+
   static const List<int> ethereumLegacy = [
     TWCoinType.TWCoinTypeEthereumClassic,
     TWCoinType.TWCoinTypeSmartChain,
   ];
+
   static const List<int> ethereumEIP1559 = [
     TWCoinType.TWCoinTypeAvalancheCChain,
     TWCoinType.TWCoinTypeEthereum,
@@ -23,6 +25,7 @@ class Cluster {
   static const List<int> solana = [
     TWCoinType.TWCoinTypeSolana,
   ];
+
   static const List<int> utxo = [
     TWCoinType.TWCoinTypeBitcoin,
     TWCoinType.TWCoinTypeBitcoinCash,
@@ -49,6 +52,7 @@ class SioAssetId {
   static const bitcoin = 1;
   static const bnbSmartChain = 7;
   static const solana = 3;
+  static const polygon = 16;
 }
 
 class EthNetworks {
@@ -116,6 +120,8 @@ class Networks {
         return SioAssetId.bnbSmartChain;
       case TWCoinType.TWCoinTypeSolana:
         return SioAssetId.solana;
+      case TWCoinType.TWCoinTypePolygon:
+        return SioAssetId.polygon;
 
       default:
         throw Exception('Network ID is not supported');

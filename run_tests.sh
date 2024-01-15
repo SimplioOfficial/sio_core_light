@@ -3,7 +3,7 @@
 fvm flutter pub get
 
 # Off emulator tests
-fvm flutter test tests
+fvm flutter test test
 
 # On emulator tests
 cd example
