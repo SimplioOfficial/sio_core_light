@@ -32,6 +32,7 @@ void main() {
     expect(SioAssetId.bitcoin, 1);
     expect(SioAssetId.bnbSmartChain, 7);
     expect(SioAssetId.solana, 3);
+    expect(SioAssetId.polygon, 16);
   });
 
   group('EthNetworks - ', () {
@@ -106,6 +107,10 @@ void main() {
       expect(
         Networks.assetId(networkId: TWCoinType.TWCoinTypeSolana),
         SioAssetId.solana,
+      );
+      expect(
+        Networks.assetId(networkId: TWCoinType.TWCoinTypePolygon),
+        SioAssetId.polygon,
       );
 
       try {
